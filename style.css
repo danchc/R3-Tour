@@ -1,8 +1,18 @@
-body {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+@import "custom.css";
+
+/*
+* login form
+*/
+
+:root {
+    --main-color: #0d6cfd;
 }
 
-/*# sourceMappingURL=style.css.map */
+.main-title {
+    border-bottom: 1px solid var(--main-color);
+}
+
+.login label {
+    font-size: 1em;
+    margin-bottom: 20px;
+}
