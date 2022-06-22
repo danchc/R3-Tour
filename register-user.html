@@ -17,44 +17,43 @@
 
 <!--header-->
 <header class="p-3 border-bottom">
-<div class="container-fluid">
+  <div class="container-fluid">
     <div class="d-flex align-items-center justify-content-center">
-    <a href="logo.svg" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+      <a th:href="@{/}" href="index.html" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
         <img src="logo.svg" width="143" height="80" x="0" y="0"></img>
-    </a>
+      </a>
     </div>
-</div>
+  </div>
 </header>
 <!-- end header -->
 
 <!--navbar-->
 <nav class="navbar navbar-expand-md bg-light">
-<div class="container-xl">
+  <div class="container-xl">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="fa-solid fa-bars"></i>
+      <i class="fa-solid fa-bars"></i>
     </button>
-    <div class="navbar-collapse justify-content-md-center collapse " id="navbarNavAltMarkup">
+      <div class="navbar-collapse justify-content-md-center collapse " id="navbarNavAltMarkup">
         <div class="navbar-nav justify-content-center w-50 ">
-        <a class="nav-link active" aria-current="page" href="#">Homepage</a>
-        <a class="nav-link" href="#">Destinazioni</a>
-        <a class="nav-link" href="#">Pacchetti</a>
-        <a class="nav-link" href="#">Chi siamo</a>
-        <a class="nav-link" href="#">Registrati</a>
+          <a class="nav-link active" aria-current="page" th:href="@{/}" href="index.html">Homepage</a>
+          <a class="nav-link" th:href="@{/destinazioni}" href="destinazioni.html">Destinazioni</a>
+          <a class="nav-link" th:href="@{/pacchetti}" href="pacchetti.html">Pacchetti</a>
+          <a class="nav-link" th:href="@{/chisiamo}" href="#">Chi siamo</a>
+          <a class="nav-link" th:href="@{/register}" href="register-user.html">Registrati</a>
         </div>
         <div class="dropdown flex justify-content-end">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-circle-user fa-xl"></i>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item active" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+            <li><a class="dropdown-item" href="login.html">Login</a></li>
+            <li><a class="dropdown-item" href="#">Registrati</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Separated link</a></li>
-        </ul>
+          </ul>
         </div>
     </div>
-</div>
+  </div>
 </nav>
 <!--navbar-->
 

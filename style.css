@@ -1,12 +1,25 @@
 @import "custom.css";
 
 /*
-* login form
+* global
 */
 
 :root {
-    --main-color: #0d6cfd;
+    --main-color: #1e6bde;
+    --hover-color: #1a7ad3;
 }
+
+nav a:hover {
+    border-bottom: 1px solid var(--main-color);
+}
+
+.navbar-nav {
+    height: 40px;
+}
+
+/*
+* login form
+*/
 
 .main-title {
     border-bottom: 1px solid var(--main-color);
@@ -15,4 +28,32 @@
 .login label {
     font-size: 1em;
     margin-bottom: 20px;
+}
+
+.featurette-heading {
+    color: var(--main-color);
+}
+
+/*
+* destinazioni
+*/
+
+.card-link button {
+    color: white;
+    border: none;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.card-link button:hover {
+    background-color: var(--hover-color);
+}
+
+.card-deck .card{
+    margin: 15px;
+}
+
+.card-deck .card .card-img-top {
+    padding: ;
 }
