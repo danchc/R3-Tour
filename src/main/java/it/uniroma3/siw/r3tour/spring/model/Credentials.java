@@ -11,10 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class Credentials {
 
     public final static String RUOLO_ADMIN = "ADMIN";
@@ -25,18 +22,14 @@ public class Credentials {
     private Long id;
 
     @NotNull
-    @NotBlank
     private String username;
 
     @NotNull
-    @NotBlank
     private String password;
 
     @NotNull
-    @NotBlank
     private String email;
 
-    @NotNull
     private String ruolo;
 
     @OneToOne(cascade = {CascadeType.ALL})

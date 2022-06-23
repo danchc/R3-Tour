@@ -54,6 +54,20 @@ nav a:hover {
     margin: 15px;
 }
 
-.card-deck .card .card-img-top {
-    padding: ;
+/* control panel for: admin */
+
+nav.cp-navbar a:hover {
+    color:blue;
+}
+
+.row a {
+    color: black;
+}
+
+.row a:hover {
+    border-bottom: none;
+}
+
+nav .sidebar-sticky a:hover {
+    color: var(--hover-color);
 }

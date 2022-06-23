@@ -4,18 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
 @Entity
-@Table(name="utente")
-@Getter @Setter @NoArgsConstructor
-public class User {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Referente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +30,9 @@ public class User {
     private String telefono;
 
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dataNascita;
+    private String email;
 
+    @OneToMany(mappedBy = "referente")
+    private List<Pacchetto> pacchetti;
 
 }

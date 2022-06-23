@@ -1,31 +1,16 @@
 <!doctype html>
-<html lang="en" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://kit.fontawesome.com/3bcc05e06e.js" crossorigin="anonymous"></script>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-    <!-- Icon CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <title>Homepage</title>
-  </head>
-  <body>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        lang="it"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+<head th:replace="fragments/base.html :: headerfiles(title='Le nostre destinazioni')"></head>
+<body>
 
-  <!--header-->
-  <header class="p-3 border-bottom">
-    <div class="container-fluid">
-      <div class="d-flex align-items-center justify-content-center">
-        <a th:href="@{/}" href="index.html" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-          <img src="../static/images/index/logo.svg" width="143" height="80" x="0" y="0"></img>
-        </a>
-      </div>
-    </div>
-  </header>
-  <!-- end header -->
+<!--header-->
+<header th:replace="fragments/base.html :: header-base">
+</header>
+<!-- end header -->
 
   <!--navbar-->
   <nav class="navbar navbar-expand-md bg-light">
@@ -77,17 +62,17 @@
       <div class="title">
         <h3>In rilevanza</h3>
         <figure class="figure">
-          <img src="/images/destinazioni/trip1.jpg" class="figure-img img-fluid rounded" alt="trip1">
+          <img src="../static/images/destinazioni/trip1.jpg" class="figure-img img-fluid rounded" alt="trip1">
           <figcaption class="figure-caption">Cuba.</figcaption>
         </figure>
       </div>
     </div>
     <div class="container col-lg-3">
       <div class="text-center">
-        <img src="/images/destinazioni/trip1.jpg" class="figure-img img-fluid rounded" alt="...">
+        <img src="../static/images/destinazioni/trip1.jpg" class="figure-img img-fluid rounded" alt="...">
       </div>
       <div class="text-center">
-        <img src="/images/destinazioni/trip1.jpg" class="figure-img img-fluid rounded" alt="...">
+        <img src="../static/images/destinazioni/trip1.jpg" class="figure-img img-fluid rounded" alt="...">
       </div>
     </div>
   </div>
