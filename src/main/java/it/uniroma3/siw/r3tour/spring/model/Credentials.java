@@ -32,6 +32,8 @@ public class Credentials {
 
     private String ruolo;
 
+    private boolean isEnabled;
+
     @OneToOne(cascade = {CascadeType.ALL})
     private User user;
 }

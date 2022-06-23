@@ -9,33 +9,7 @@
 <!-- end header -->
 
 <!--navbar-->
-<nav class="navbar navbar-expand-md bg-light">
-  <div class="container-xl">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-      <div class="navbar-collapse justify-content-md-center collapse " id="navbarNavAltMarkup">
-        <div class="navbar-nav justify-content-center w-50 ">
-          <a class="nav-link active" aria-current="page" th:href="@{/}" href="index.html">Homepage</a>
-          <a class="nav-link" th:href="@{/destinazioni}" href="destinazioni.html">Destinazioni</a>
-          <a class="nav-link" th:href="@{/pacchetti}" href="pacchetti.html">Pacchetti</a>
-          <a class="nav-link" th:href="@{/chisiamo}" href="#">Chi siamo</a>
-          <a class="nav-link" th:href="@{/register}" href="register-user.html">Registrati</a>
-        </div>
-        <div class="dropdown flex justify-content-end">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-regular fa-circle-user fa-xl"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item" href="login.html">Login</a></li>
-            <li><a class="dropdown-item" href="#">Registrati</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </div>
-    </div>
-  </div>
-</nav>
+<nav th:replace="fragments/base.html :: navbar"></nav>
 <!--navbar-->
 
 <!-- registration title -->
@@ -48,7 +22,7 @@
 <!-- registration title-->
 
 <!--container-->
-<div class="row">
+<div class="row m-2">
 
     <!-- img -->
     <div class="col-md-5">
@@ -66,7 +40,7 @@
             <!-- riquadro errori -->
             <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
                     <ul>
-                        <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                        <li th:each="err : ${#fields.allErrors()}" th:text="${err.}" />
                     </ul>
             </div>
 

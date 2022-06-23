@@ -28,4 +28,11 @@ public class CredentialsService {
         return credentialsRepository.existsByUsername(username);
     }
 
+    public Credentials findByEmail(String email) {
+        return this.credentialsRepository.findByEmail(email).get();
+    }
+
+    public Credentials findCredentialsByUsername(String username){
+        return this.credentialsRepository.findByUsername(username).get();
+    }
 }
