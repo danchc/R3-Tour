@@ -71,32 +71,22 @@
 
             <h2>Destinazioni:</h2>
             <div class="table-responsive">
-            <table class="table table-striped table-sm">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nazione</th>
-                    <th>Continente</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Daniel</td>
-                    <td>Checchia</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Daniel</td>
-                    <td>Checchia</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Daniel</td>
-                    <td>Checchia</td>
-                </tr>
-                </tbody>
-            </table>
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nazione</th>
+                        <th>Continente</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="destinazione : ${destinazioni}">
+                    <tr>
+                        <td th:text="${destinazione.id}">#</td>
+                        <td th:text="${destinazione.nome}">nome</td>
+                        <td th:text="${destinazione.continente}">continente</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </main>
     </div>

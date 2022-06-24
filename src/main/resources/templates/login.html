@@ -17,19 +17,15 @@
     <h1>Accedi</h1>
   </div>
   <div class="login container col-md-5 col-lg-4">
-    <form>
+    <form method="POST" th:action="@{/login}">
         <div class="form-group">
           <label for="username">Username</label>
           <input type="username" class="form-control" id="username" placeholder="Inserisci username">
         </div>
         <div class="form-group mt-4">
           <label for="password">Password</label>
-          <input type="password" class="form-control" id="psw-form" placeholder="Password" aria-describedby="pswHelp">
+          <input type="password" class="form-control" id="password" placeholder="Inserisci password" aria-describedby="pswHelp">
           <small id="pswHelp" class="form-text text-muted">Password dimenticata?</small>
-        </div>
-        <div class="form-check mt-3 mb-3">
-          <input type="checkbox" class="form-check-input" id="remember-check">
-          <label class="form-check-label" for="remember-check">Ricordami</label>
         </div>
         <div class="container flex text-center">
             <a href=""><button type="submit" class="btn btn-primary">Accedi</button></a>

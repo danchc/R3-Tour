@@ -50,11 +50,25 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-regular fa-circle-user fa-xl"></i>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                    <li><a class="dropdown-item" th:href="@{/}">Profilo</li>
+
+                <!-- DEFAULT -->
+                <ul th:if="${session.role == 'DEFAULT'}"
+                    class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                    <li><a class="dropdown-item" th:href="@{/}">Profilo</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
                 </ul>
+                <!-- DEFAULT -->
+
+                <!-- ADMIN -->
+                <ul th:if="${session.role == 'ADMIN'}"
+                    class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                    <li><a class="dropdown-item" th:href="@{/}">Profilo</a></li>
+                    <li><a class="dropdown-item" th:href="@{/dashboard}">Dashboard</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                </ul>
+                <!-- DEFAULT -->
             </div>
         </div>
     </div>

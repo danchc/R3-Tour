@@ -58,9 +58,9 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
         http
                 /*definiamo le pagine accessibili da tutti e dall'admin*/
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/", "/signin", "/signup",
+                .antMatchers(HttpMethod.GET, "/", "/login", "/signup",
                         "/css/**", "/images/**", "/destinazioni", "/chisiamo", "/pacchetti").permitAll()
-                .antMatchers(HttpMethod.POST, "/signin", "/signup").permitAll()
+                .antMatchers(HttpMethod.POST, "/login", "/signup").permitAll()
                 .antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(RUOLO_ADMIN)
                 .antMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(RUOLO_ADMIN)
                 .anyRequest().authenticated()
@@ -70,9 +70,8 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 /* gestione del login */
                 .and()
                 .formLogin()
-                .loginPage("/signin")
+                .loginPage("/login")
                 .defaultSuccessUrl("/default")
-                .failureUrl("/signin?error")
                 /*gestione logout */
                 .and()
                 .logout()

@@ -1,12 +1,14 @@
 package it.uniroma3.siw.r3tour.spring.service;
 
 import it.uniroma3.siw.r3tour.spring.model.Credentials;
+import it.uniroma3.siw.r3tour.spring.model.Destinazione;
 import it.uniroma3.siw.r3tour.spring.repository.CredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class CredentialsService {
@@ -34,5 +36,9 @@ public class CredentialsService {
 
     public Credentials findCredentialsByUsername(String username){
         return this.credentialsRepository.findByUsername(username).get();
+    }
+
+    public List<Credentials> findAllUtentiRegistrati(){
+        return (List<Credentials>) this.credentialsRepository.findAll();
     }
 }

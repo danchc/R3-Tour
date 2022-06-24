@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 
@@ -57,7 +58,7 @@ public class AuthController {
      * Questo metodo gestisce il reindirizzamento alla pagina di login.
      * @return login.html
      */
-    @GetMapping("/signin")
+    @GetMapping("/login")
     public String getLoginPage(){
         return "login";
     }
@@ -119,18 +120,11 @@ public class AuthController {
 
     @GetMapping("/default")
     public String getDefault(Model model,
-                             @ModelAttribute("user") User user) {
+                             HttpSession session) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Credentials credentials = credentialsService.findCredentialsByUsername(userDetails.getUsername());
 
-        if(credentials.isEnabled()){
-            user = credentials.getUser();
-            model.addAttribute("credentials", credentials.getUsername());
-            model.addAttribute("user", user);
-            return "home";
-        } else {
-            return "error";
-        }
+        return "redirect:/";
     }
 
     /* gestisce il logout dell'utente corrente */
