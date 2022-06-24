@@ -21,6 +21,8 @@ public class Destinazione {
 
     private String nome;
 
+    private String nazione;
+
     @ManyToOne
     private Continente continente;
 

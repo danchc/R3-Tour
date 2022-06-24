@@ -3,7 +3,7 @@
         xmlns:th="http://www.thymeleaf.org"
         lang="it"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="fragments/base.html :: headerfiles(title='Le nostre destinazioni')"></head>
 <body>
 
@@ -13,10 +13,11 @@
   <!-- end header -->
 
   <!--navbar-->
-  <nav th:replace="fragments/base_default.html :: navbar"></nav>
+  <nav sec:authorize="isAnonymous()" th:replace="fragments/base.html :: navbar"></nav>
   <!--navbar-->
+
   <!--navbar-->
-  <nav th:replace="fragments/base.html :: navbar"></nav>
+  <nav sec:authorize="isAuthenticated()" th:replace="fragments/base_default.html :: navbar"></nav>
   <!--navbar-->
   
   <div class="container text-center mt-5">

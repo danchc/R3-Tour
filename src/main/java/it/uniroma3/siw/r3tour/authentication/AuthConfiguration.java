@@ -35,8 +35,6 @@ import static it.uniroma3.siw.r3tour.spring.model.Credentials.RUOLO_ADMIN;
 import static it.uniroma3.siw.r3tour.spring.model.Credentials.RUOLO_DEFAULT;
 
 @Configuration
-@EnableAutoConfiguration
-@ComponentScan
 @EnableWebSecurity
 //@EnableOAuth2Client
 public class AuthConfiguration extends WebSecurityConfigurerAdapter {
@@ -56,6 +54,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .requestCache().disable()
                 /*definiamo le pagine accessibili da tutti e dall'admin*/
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/", "/login", "/signup",

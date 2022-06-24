@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="fragments/base.html :: headerfiles(title='Registrazione')"></head>
 <body>
 
@@ -9,7 +11,11 @@
 <!-- end header -->
 
 <!--navbar-->
-<nav th:replace="fragments/base.html :: navbar"></nav>
+<nav sec:authorize="isAnonymous()" th:replace="fragments/base.html :: navbar"></nav>
+<!--navbar-->
+
+<!--navbar-->
+<nav sec:authorize="isAuthenticated()" th:replace="fragments/base_default.html :: navbar"></nav>
 <!--navbar-->
 
 <!-- registration title -->
@@ -39,12 +45,12 @@
 
             <!-- riquadro errori -->
             <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-                    <ul>
-                        <li th:each="err : ${#fields.allErrors()}" th:text="${err.}" />
-                    </ul>
+                <ul>
+                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                </ul>
             </div>
-
             <!-- -->
+
             <div class="row mb-4">
             <div class="col">
                 <div class="form-outline">

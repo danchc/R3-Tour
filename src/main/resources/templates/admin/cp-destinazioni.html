@@ -4,7 +4,7 @@
     lang="it"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink">
-<head th:replace="fragments/base.html :: headerfiles(title='Dashboard')"></head>
+<head th:replace="fragments/base.html :: headerfiles(title='Aggiungi nuova destinazione')"></head>
 <body>
 
 <!-- container -->
@@ -14,8 +14,8 @@
     <!-- sidebar -->
         <div class="min-vh-100 col-md-2 d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-            <img th:src="@{images/index/logo.svg}" src="../../static/images/for-dark/logo.svg" width="143" height="80" x="0" y="0"></img>
+                <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                <img th:src="@{/images/for-dark/logo.svg}" src="../../static/images/for-dark/logo.svg" width="143" height="80" x="0" y="0"></img>
             </a>
             <hr>
             <ul class="nav flex-column mb-auto">
@@ -26,13 +26,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a th:href="@{/}" href="controlpanel.html" class="nav-link text-white" aria-current="page">
+                    <a th:href="@{/dashboard}" href="controlpanel.html" class="nav-link text-white" aria-current="page">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                     Dashboard
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/}" href="cp-destinazioni.html" class="nav-link text-white">
+                    <a th:href="@{/add/new/destinazione}" href="cp-destinazioni.html" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
                     Destinazioni
                     </a>
@@ -53,12 +53,12 @@
             <hr>
             <div class="">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <strong>admin</strong>
+                <p sec:authentication="name"><strong>admin</strong></p>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                 <li><a class="dropdown-item" href="#">Profilo</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
+                <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
             </ul>
             </div>
         </div>
@@ -66,15 +66,64 @@
     
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-            <h1 class="h2">Destinazioni</h1>
+                <h1 class="h2">Destinazioni</h1>
             </div>
 
+            <div class="container-md mb-5">
+                <div class="text-center">
+                    <h1>Aggiungi una nuova destinazione</h1>
+                </div>
+
+                <form method="POST" th:action="@{/new/destinazione}" th:object="${destinazione}">
+
+                    <!-- riquadro errori -->
+                    <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                        <ul>
+                            <li th:each="err : ${#fields.errors()}" th:text="${err}" />
+                        </ul>
+                    </div>
+                    <!-- -->
+
+                    <!-- Nome input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="nome">Nome</label>
+                        <input type="text" id="nome" class="form-control" th:field="${destinazione.nome}"/>
+                    </div>
+
+                    <!-- Nome input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="nome">Nazione</label>
+                        <input type="text" id="nome" class="form-control" th:field="${destinazione.nazione}"/>
+                    </div>
+
+                    <!-- Continente select -->
+                    <div class="col-md-4 form-outline mb-4">
+                        <label class="form-label" for="continente">Continente</label>
+                        <select th:field="${destinazione.continente}"
+                                class="form-select" aria-label="continente select">
+                            <option th:each="continente : ${continenti}"
+                                    th:value="${continente.id}"
+                                    th:text="${continente.nome.toUpperCase()}">nome</option>
+                        </select>
+                    </div>
+
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary m-2">Aggiungi</button>
+                        <button type="reset" class="btn btn-primary m-2">Cancella</button>
+                    </div>
+                </form>
+            </div>
+
+
             <h2>Destinazioni:</h2>
+            <!-- destinazioni aggiunte -->
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>Nome</th>
                         <th>Nazione</th>
                         <th>Continente</th>
                     </tr>
@@ -83,10 +132,14 @@
                     <tr>
                         <td th:text="${destinazione.id}">#</td>
                         <td th:text="${destinazione.nome}">nome</td>
-                        <td th:text="${destinazione.continente}">continente</td>
+                        <td th:text="${destinazione.nazione}">nazione</td>
+                        <td th:text="${destinazione.continente.nome}">continente</td>
                     </tr>
                     </tbody>
                 </table>
+                <div th:if="${destinazioni?.isEmpty()}">
+                    Non sono ancora state aggiunte destinazioni.
+                </div>
             </div>
         </main>
     </div>
