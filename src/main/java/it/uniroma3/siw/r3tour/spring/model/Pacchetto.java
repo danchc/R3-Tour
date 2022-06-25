@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -17,6 +18,18 @@ public class Pacchetto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    private String nome;
+
+    @NotNull
+    private String descrizione;
+
+    @NotNull
+    private Integer prezzo;
+
+    @NotNull
+    private String periodo;
 
     @ManyToOne
     private Referente referente;

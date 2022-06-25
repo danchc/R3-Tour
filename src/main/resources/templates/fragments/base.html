@@ -120,7 +120,7 @@
 <div th:fragment="dashboard-sidebar" class="min-vh-100 col-md-2 d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        <img th:src="@{images/for-dark/logo.svg}" src="../../static/images/for-dark/logo.svg" width="143" height="80" x="0" y="0"></img>
+        <img th:src="@{/images/for-dark/logo.svg}" src="../../static/images/for-dark/logo.svg" width="143" height="80" x="0" y="0"></img>
     </a>
     <hr>
     <ul class="nav flex-column mb-auto">
@@ -143,7 +143,13 @@
             </a>
         </li>
         <li>
-            <a th:href="@{/add/new/pacchetto}" class="nav-link text-white">
+            <a th:href="@{/add/new/pacchetto}" class="nav-link text-white"
+               th:unless="${destinazioni.isEmpty() or referenti.isEmpty()}">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                Aggiungi pacchetto
+            </a>
+            <a class="nav-link text-black-50 disabled"
+               th:if="${destinazioni.isEmpty() or referenti.isEmpty()}">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                 Aggiungi pacchetto
             </a>
