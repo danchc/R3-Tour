@@ -1,6 +1,7 @@
 package it.uniroma3.siw.r3tour.spring.controller;
 
 import it.uniroma3.siw.r3tour.spring.model.Referente;
+import it.uniroma3.siw.r3tour.spring.service.DestinazioneService;
 import it.uniroma3.siw.r3tour.spring.service.ReferenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class ReferenteController {
     @Autowired
     protected ReferenteService referenteService;
 
+    @Autowired
+    protected DestinazioneService destinazioneService;
 
     /**
      *
@@ -28,6 +31,7 @@ public class ReferenteController {
     @GetMapping("/add/new/referente")
     public String getFormReferente(Model model){
         model.addAttribute("referente", new Referente());
+        model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
         model.addAttribute("referenti", this.referenteService.findAllReferenti());
         return "admin/cp-referenti";
     }

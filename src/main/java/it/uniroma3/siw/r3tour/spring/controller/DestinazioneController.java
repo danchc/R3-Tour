@@ -3,6 +3,7 @@ package it.uniroma3.siw.r3tour.spring.controller;
 import it.uniroma3.siw.r3tour.spring.model.Destinazione;
 import it.uniroma3.siw.r3tour.spring.service.ContinenteService;
 import it.uniroma3.siw.r3tour.spring.service.DestinazioneService;
+import it.uniroma3.siw.r3tour.spring.service.ReferenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,9 @@ public class DestinazioneController {
 
     @Autowired
     protected ContinenteService continenteService;
+
+    @Autowired
+    protected ReferenteService referenteService;
 
     /**
      *
@@ -40,6 +44,7 @@ public class DestinazioneController {
     @GetMapping("/add/new/destinazione")
     public String getFormDestinazione(Model model){
         model.addAttribute("continenti", this.continenteService.findAllContinenti());
+        model.addAttribute("referenti", this.referenteService.findAllReferenti());
         model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
         model.addAttribute("destinazione", new Destinazione());
         return "admin/cp-destinazioni";
