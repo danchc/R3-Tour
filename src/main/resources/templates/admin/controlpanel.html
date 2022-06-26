@@ -194,7 +194,7 @@
                         <td th:text="${pacchetto.nome}">nome</td>
                         <td th:text="${pacchetto.descrizione}">descrizione</td>
                         <td th:text="${pacchetto.prezzo}">prezzo</td>
-                        <td th:text="${pacchetto.periodo}">periodo</td>
+                        <td><p th:text="${pacchetto.numeroGiorni + 'giorni'}">Giorni</p>-<p th:text="${pacchetto.numeroNotti + 'notti'}">Notti</p></td>
                         <td th:text="|${pacchetto.referente.nome} ${pacchetto.referente.cognome}|">referente</td>
                         <td th:text="${pacchetto.destinazione.nome}">destinazione</td>
                     </tr>

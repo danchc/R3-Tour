@@ -71,3 +71,11 @@ nav.cp-navbar a:hover {
 nav .sidebar-sticky a:hover {
     color: var(--hover-color);
 }
+
+/* index
+ */
+
+.carousel-inner .bg-image{
+    height: 600px;
+    background-size: cover;
+}

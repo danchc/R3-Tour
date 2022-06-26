@@ -28,8 +28,13 @@ public class Pacchetto {
     @NotNull
     private Integer prezzo;
 
+    /* periodo */
     @NotNull
-    private String periodo;
+    private Integer numeroGiorni;
+
+    @NotNull
+    private Integer numeroNotti;
+    /* periodo */
 
     @ManyToOne
     private Referente referente;

@@ -45,22 +45,37 @@
                     <!-- Descrizione input -->
                     <div class="form-outline">
                         <label class="form-label">Descrizione</label>
-                        <textarea class="form-control" placeholder="Inserisci la descrizione" style="height: 100px"></textarea>
+                        <textarea th:field="*{descrizione}" class="form-control" placeholder="Inserisci la descrizione" style="height: 100px"></textarea>
                     </div>
 
-                    <!-- Nome e cognome input -->
+                    <!-- Prezzo e periodo input -->
                     <div class="row mb-4">
                         <div class="col">
                             <div class="form-outline">
                                 <label class="form-label" for="prezzo">Prezzo</label>
-                                <input type="number" name="prezzo" id="prezzo" class="form-control" th:field="*{prezzo}"/>
+                                <div class="input-group">
+                                    <span class="input-group-text">€</span>
+                                    <input type="number" name="prezzo" id="prezzo" class="form-control" th:field="*{prezzo}"/>
+                                </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-outline">
-                                <label class="form-label" for="periodo">Periodo</label>
-                                <input type="text" name="periodo" id="periodo" class="form-control" th:field="*{periodo}"/>
+                            <!-- numero giorni e numero notti -->
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="prezzo">Giorni</label>
+                                        <input type="number" name="numeroGiorni" id="numeroGiorni" class="form-control" th:field="*{numeroGiorni}"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="periodo">Notti</label>
+                                        <input type="number" name="numeroNotti" id="numeroNotti" class="form-control" th:field="*{numeroNotti}"/>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
 

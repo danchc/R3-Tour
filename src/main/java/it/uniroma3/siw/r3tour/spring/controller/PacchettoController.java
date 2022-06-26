@@ -58,7 +58,7 @@ public class PacchettoController {
     @PostMapping("/new/pacchetto")
     public String addNewPacchetto(@Valid @ModelAttribute("pacchetto") Pacchetto pacchetto,
                                   BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes){
+                                  RedirectAttributes redirectAttributes, Model model){
         if(!bindingResult.hasErrors()){
             this.pacchettoService.inserisci(pacchetto);
             redirectAttributes.addFlashAttribute("successmsg",
@@ -66,6 +66,9 @@ public class PacchettoController {
             return "redirect:/dashboard";
         }
 
+        model.addAttribute("pacchetti", this.pacchettoService.findAllPacchetti());
+        model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
+        model.addAttribute("referenti", this.referenteService.findAllReferenti());
         return "admin/cp-pacchetti";
     }
 }

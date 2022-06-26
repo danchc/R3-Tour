@@ -46,12 +46,13 @@ public class ReferenteController {
     @PostMapping("/new/referente")
     public String addNewReferente(@Valid @ModelAttribute("referente") Referente referente,
                                   BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes){
+                                  RedirectAttributes redirectAttributes, Model model){
         if(!bindingResult.hasErrors()){
             this.referenteService.inserisci(referente);
             redirectAttributes.addFlashAttribute("successmsg", "Il referente è stato aggiunto con successo!");
             return "redirect:/dashboard";
         }
+
         return "admin/cp-referenti";
     }
 }

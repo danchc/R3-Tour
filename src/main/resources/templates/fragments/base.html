@@ -176,12 +176,12 @@
         </li>
         <li>
             <a th:href="@{/add/new/pacchetto}" class="nav-link text-white"
-               th:unless="${destinazioni.isEmpty() or referenti.isEmpty()}">
+               th:unless="${destinazioni == null || referenti == null}">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                 Aggiungi pacchetto
             </a>
             <a class="nav-link text-black-50 disabled" data-bs-toggle="tooltip" title="Another tooltip"
-               th:if="${destinazioni.isEmpty() or referenti.isEmpty()}">
+               th:if="${destinazioni == null || referenti == null}">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                 Aggiungi pacchetto
             </a>

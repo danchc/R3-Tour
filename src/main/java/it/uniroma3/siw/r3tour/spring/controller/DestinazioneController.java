@@ -66,6 +66,7 @@ public class DestinazioneController {
             redirectAttributes.addFlashAttribute("successmsg", "La destinazione è stata aggiunta con successo!");
             return "redirect:/dashboard";
         }
+
         return "cp-destinazioni";
     }
 }
