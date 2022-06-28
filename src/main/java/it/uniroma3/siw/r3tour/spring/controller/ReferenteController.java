@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -54,5 +55,21 @@ public class ReferenteController {
         }
 
         return "admin/cp-referenti";
+    }
+
+    /**
+     *
+     * @param id del referente da eliminare
+     * @param redirectAttributes
+     * @return
+     */
+    @GetMapping("/delete/referente/{id}")
+    public String deleteReferente(@PathVariable("id") Long id,
+                                  RedirectAttributes redirectAttributes){
+        Referente referente = this.referenteService.findReferenteById(id);
+        this.referenteService.deleteReferente(referente);
+        redirectAttributes.addFlashAttribute("successmsg",
+                "Il referente" + referente.getNome() + " " + referente.getCognome() + "è stato eliminato con successo!");
+        return "redirect:/dashboard";
     }
 }

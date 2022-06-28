@@ -118,7 +118,9 @@
                         <!-- delete & modify -->
                         <td>
                             <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
-                            <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                            <a th:href="@{'/delete/utente' + '/' + ${utente.id}}">
+                                <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                            </a>
                         </td>
                         <!-- delete & modify -->
 
@@ -151,7 +153,9 @@
                         <!-- delete & modify -->
                         <td>
                             <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
-                            <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                            <a th:href="@{'/delete/destinazione' + '/' + ${destinazione.id}}">
+                                <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                            </a>
                         </td>
                         <!-- delete & modify -->
 
@@ -188,7 +192,9 @@
                         <!-- delete & modify -->
                         <td>
                             <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
-                            <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                            <a th:href="@{'/delete/referente' + '/' + ${referente.id}}">
+                                <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                            </a>
                         </td>
                         <!-- delete & modify -->
 
@@ -229,7 +235,9 @@
                         <!-- delete & modify -->
                         <td>
                             <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
-                            <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                            <a th:href="@{'/delete/pacchetto' + '/' + ${pacchetto.id}}">
+                                <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                            </a>
                         </td>
                         <!-- delete & modify -->
 

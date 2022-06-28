@@ -23,4 +23,13 @@ public class DestinazioneService {
     public List<Destinazione> findAllDestinazioni(){
         return (List<Destinazione>) this.destinazioneRepository.findAll();
     }
+
+    @Transactional
+    public void deleteDestinazione(Destinazione destinazione){
+        this.destinazioneRepository.delete(destinazione);
+    }
+
+    public Destinazione findDestinazioneById(Long id) {
+        return this.destinazioneRepository.findById(id).get();
+    }
 }

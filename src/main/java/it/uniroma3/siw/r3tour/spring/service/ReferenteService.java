@@ -22,4 +22,13 @@ public class ReferenteService {
     public List<Referente> findAllReferenti() {
         return (List<Referente>) this.referenteRepository.findAll();
     }
+
+    @Transactional
+    public void deleteReferente(Referente referente){
+        this.referenteRepository.delete(referente);
+    }
+
+    public Referente findReferenteById(Long id) {
+        return this.referenteRepository.findById(id).get();
+    }
 }
