@@ -35,7 +35,7 @@ public class PacchettoController {
      */
     @GetMapping("/pacchetti")
     public String getPagePacchetti(Model model){
-        model.addAttribute("pacchettiTotali",
+        model.addAttribute("pacchetti",
                 this.pacchettoService.findAllPacchetti());
 
         return "pacchetti";

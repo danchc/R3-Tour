@@ -104,6 +104,7 @@
                         <th>Cognome</th>
                         <th>Username</th>
                         <th>E-mail</th>
+                        <th><strong>Azioni</strong></th>
                     </tr>
                     </thead>
                     <tbody th:each="utente : ${utentiRegistrati}">
@@ -113,6 +114,14 @@
                         <td th:text="${utente.user.cognome}" >Checchia</td>
                         <td th:text="${utente.username}">dan.checchia</td>
                         <td th:text="${utente.email}">email</td>
+
+                        <!-- delete & modify -->
+                        <td>
+                            <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
+                            <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                        </td>
+                        <!-- delete & modify -->
+
                     </tr>
                     </tbody>
                 </table>
@@ -129,6 +138,7 @@
                         <th>Nome</th>
                         <th>Nazione</th>
                         <th>Continente</th>
+                        <th><strong>Azioni</strong></th>
                     </tr>
                     </thead>
                     <tbody th:each="destinazione : ${destinazioni}">
@@ -137,6 +147,14 @@
                         <td th:text="${destinazione.nome}">nome</td>
                         <td th:text="${destinazione.nazione}">nazione</td>
                         <td th:text="${destinazione.continente.nome}">continente</td>
+
+                        <!-- delete & modify -->
+                        <td>
+                            <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
+                            <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                        </td>
+                        <!-- delete & modify -->
+
                     </tr>
                     </tbody>
                 </table>
@@ -156,6 +174,7 @@
                         <th>Cognome</th>
                         <th>Telefono</th>
                         <th>E-mail</th>
+                        <th><strong>Azioni</strong></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -165,6 +184,14 @@
                         <td th:text="${referente?.cognome}">cognome</td>
                         <td th:text="${referente?.telefono}">telefono</td>
                         <td th:text="${referente?.email}">email</td>
+
+                        <!-- delete & modify -->
+                        <td>
+                            <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
+                            <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                        </td>
+                        <!-- delete & modify -->
+
                     </tr>
                     </tbody>
                 </table>
@@ -186,6 +213,7 @@
                         <th>Periodo</th>
                         <th>Referente</th>
                         <th>Destinazione</th>
+                        <th><strong>Azioni</strong></th>
                     </tr>
                     </thead>
                     <tbody th:each="pacchetto: ${pacchetti}">
@@ -197,6 +225,14 @@
                         <td><p th:text="${pacchetto.numeroGiorni + 'giorni'}">Giorni</p>-<p th:text="${pacchetto.numeroNotti + 'notti'}">Notti</p></td>
                         <td th:text="|${pacchetto.referente.nome} ${pacchetto.referente.cognome}|">referente</td>
                         <td th:text="${pacchetto.destinazione.nome}">destinazione</td>
+
+                        <!-- delete & modify -->
+                        <td>
+                            <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
+                            <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
+                        </td>
+                        <!-- delete & modify -->
+
                     </tr>
                     </tbody>
                 </table>

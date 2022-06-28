@@ -48,7 +48,9 @@
           <label for="password">Password</label>
             <div class="input-group">
                 <input type="password" class="form-control" name="password" id="password" placeholder="Inserisci password" aria-describedby="pswHelp">
-                <span class="input-group-text"><i class="bi bi-eye-slash"></i></span>
+                <span class="input-group-text">
+                    <i class="bi bi-eye-slash" onClick="show(this)"></i>
+                </span>
             </div>
 
           <small id="pswHelp" class="form-text text-muted">Password dimenticata?</small>
@@ -72,6 +74,26 @@
     </section>
 </div> 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+</script>
+<script>
+    let passwordInput = document.getElementById('password');
+
+    let show = function (icon) {
+        // se non è visibile
+        if(passwordInput.type === "password"){
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+            passwordInput.type = "text";
+        }
+        //altrimenti se è visibile
+        else if (passwordInput.type === "text"){
+            //cambio icona e copro la password
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+            passwordInput.type = "password";
+        }
+    }
+</script>
 </body>
 </html>

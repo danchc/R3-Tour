@@ -29,38 +29,30 @@
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="bg-image" style="height: 500px;">
-          <img th:src="@{/images/index/rome.jpg}"
-               src="/images/index/slide.jpg"
-               class="d-block w-100" alt="first">
-        </div>
+      <div class="carousel-item active first">
+        <img th:src="@{/images/index/rome.jpg}" style="height: 500px;" class="w-100">
         <div class="container">
           <div class="carousel-caption text-start">
-            <h1>Roma <span class="h2 badge bg-primary">New</span></h1>
+            <h2>Roma <span class=" badge bg-primary">New</span></h2>
             <p>Ti aspettiamo in sede per uno sconto immediato del 20%!</p>
             <p><a class="btn btn-lg btn-primary" href="#">Clicca per saperne di più</a></p>
           </div>
         </div>
       </div>
-      <div class="carousel-item">
-        <div class="bg-image" style="height: 500px;">
-          <img th:src="@{/images/index/slide.jpg}"
-               class="d-block w-100" alt="second">
-        </div>
-        <div class="container">
-          <div class="carousel-caption text-center">
-            <h1>Example headline.</h1>
-            <p>Some representative placeholder content for the first slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+
+      <div class="carousel-item second">
+        <img th:src="@{/images/index/rome.jpg}" style="height: 500px;" class="w-100">
+          <div class="container">
+            <div class="carousel-caption text-center">
+              <h1>Example headline.</h1>
+              <p>Some representative placeholder content for the first slide of the carousel.</p>
+              <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+            </div>
           </div>
-        </div>
       </div>
-      <div class="carousel-item">
-        <div class="bg-image" style="height: 500px;">
-          <img th:src="@{/images/index/slide.jpg}"
-               class="d-block w-100" alt="third">
-        </div>
+
+      <div class="carousel-item third">
+        <img th:src="@{/images/index/rome.jpg}" style="height: 500px;" class="w-100">
         <div class="container">
           <div class="carousel-caption text-end">
             <h1>Example headline.</h1>
@@ -69,6 +61,7 @@
           </div>
         </div>
       </div>
+
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>

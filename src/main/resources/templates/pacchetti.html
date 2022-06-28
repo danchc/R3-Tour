@@ -26,105 +26,24 @@
   </p>
   </div>
 
-  <div class="card-deck row p-5 justify-content-center align-items-center">
-    <div class="card p-0 m-2" style="width: 21rem;">
-      <img class="card-img-top" th:src="@{/images/destinazioni/trip1.jpg}" alt="Card image cap">
+  <div class="card-deck row p-5 m-1 justify-content-center align-items-center">
+    <div th:each="pacchetto : ${pacchetti}" class="card p-0 m-2" style="width: 21rem;">
+      <img class="card-img-top" th:src="@{/images/destinazioni/rome.jpg}" style="height: 175px" alt="trip-image">
       <div class="card-body">
-        <h5 class="card-title">Cuba</h5>
-        <p class="card-text">Pronti per un viaggio incredibile? Non lasciatevi scappare questa occasione.</p>
+        <h5 class="card-title" th:text="${pacchetto.nome}">nome pacchetto</h5>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Periodo: <span>6 notti 5 giorni</span></li>
-        <li class="list-group-item">Referente: <span>Ciro Esposito</span></li>
-        <li class="list-group-item">Prezzo: <span>650€</span></li>
+        <li class="list-group-item">Periodo: <span th:text="${pacchetto.numeroGiorni}"></span> giorni e <span th:text="${pacchetto.numeroNotti}"> notti</span> notti</li>
+        <li class="list-group-item">Referente: <span th:text="|${pacchetto.referente.nome} ${pacchetto.referente.cognome}|">nome e cognome referente</span></li>
       </ul>
       <div class="card-body">
         <a href="#" class="card-link"><button class="btn btn-primary">Scopri di più</button></a>
-        <a href="#" class="card-link"><button class="btn btn-primary">Contattaci</button></a>
+        <a th:href="@{/chisiamo}" class="card-link"><button class="btn btn-primary">Contattaci</button></a>
       </div>
     </div>
-    <div class="card p-0 m-2" style="width: 21rem;">
-      <img class="card-img-top" th:src="@{/images/destinazioni/trip1.jpg}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Cuba</h5>
-        <p class="card-text">Pronti per un viaggio incredibile? Non lasciatevi scappare questa occasione.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Periodo: <span>6 notti 5 giorni</span></li>
-        <li class="list-group-item">Referente: <span>Ciro Esposito</span></li>
-        <li class="list-group-item">Prezzo: <span>650€</span></li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link"><button class="btn btn-primary">Scopri di più</button></a>
-        <a href="#" class="card-link"><button class="btn btn-primary">Contattaci</button></a>
-      </div>
-    </div>
-    <div class="card p-0 m-2" style="width: 21rem;">
-      <img class="card-img-top" th:src="@{/images/destinazioni/trip1.jpg}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Cuba</h5>
-        <p class="card-text">Pronti per un viaggio incredibile? Non lasciatevi scappare questa occasione.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Periodo: <span>6 notti 5 giorni</span></li>
-        <li class="list-group-item">Referente: <span>Ciro Esposito</span></li>
-        <li class="list-group-item">Prezzo: <span>650€</span></li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link"><button class="btn btn-primary">Scopri di più</button></a>
-        <a href="#" class="card-link"><button class="btn btn-primary">Contattaci</button></a>
-      </div>
-    </div>
-    <div class="card p-0 m-2" style="width: 21rem;">
-      <img class="card-img-top" th:src="@{/images/destinazioni/trip1.jpg}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Cuba</h5>
-        <p class="card-text">Pronti per un viaggio incredibile? Non lasciatevi scappare questa occasione.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Periodo: <span>6 notti 5 giorni</span></li>
-        <li class="list-group-item">Referente: <span>Ciro Esposito</span></li>
-        <li class="list-group-item">Prezzo: <span>650€</span></li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link"><button class="btn btn-primary">Scopri di più</button></a>
-        <a href="#" class="card-link"><button class="btn btn-primary">Contattaci</button></a>
-      </div>
-    </div>
-    <div class="card p-0 m-2" style="width: 21rem;">
-      <img class="card-img-top" th:src="@{/images/destinazioni/trip1.jpg}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Cuba</h5>
-        <p class="card-text">Pronti per un viaggio incredibile? Non lasciatevi scappare questa occasione.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Periodo: <span>6 notti 5 giorni</span></li>
-        <li class="list-group-item">Referente: <span>Ciro Esposito</span></li>
-        <li class="list-group-item">Prezzo: <span>650€</span></li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link"><button class="btn btn-primary">Scopri di più</button></a>
-        <a href="#" class="card-link"><button class="btn btn-primary">Contattaci</button></a>
-      </div>
-    </div>
-    <div class="card p-0 m-2" style="width: 21rem;">
-      <img class="card-img-top" th:src="@{/images/destinazioni/trip1.jpg}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Cuba</h5>
-        <p class="card-text">Pronti per un viaggio incredibile? Non lasciatevi scappare questa occasione.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Periodo: <span>6 notti 5 giorni</span></li>
-        <li class="list-group-item">Referente: <span>Ciro Esposito</span></li>
-        <li class="list-group-item">Prezzo: <span>650€</span></li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link"><button class="btn btn-primary">Scopri di più</button></a>
-        <a href="#" class="card-link"><button class="btn btn-primary">Contattaci</button></a>
-      </div>
-    </div>
-    
   </div>
+
+  <!-- fine container card -->
 
 <!-- footer -->
 <footer th:replace="fragments/base.html :: footer"></footer>
