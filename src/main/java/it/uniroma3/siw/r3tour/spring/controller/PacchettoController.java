@@ -1,6 +1,7 @@
 package it.uniroma3.siw.r3tour.spring.controller;
 
 import it.uniroma3.siw.r3tour.spring.model.Pacchetto;
+import it.uniroma3.siw.r3tour.spring.model.Referente;
 import it.uniroma3.siw.r3tour.spring.service.DestinazioneService;
 import it.uniroma3.siw.r3tour.spring.service.PacchettoService;
 import it.uniroma3.siw.r3tour.spring.service.ReferenteService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -78,5 +80,63 @@ public class PacchettoController {
         model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
         model.addAttribute("referenti", this.referenteService.findAllReferenti());
         return "admin/cp-pacchetti";
+    }
+
+    /**
+     *
+     * @param id del pacchetto da eliminare
+     * @param redirectAttributes
+     * @return
+     */
+    @GetMapping("/delete/pacchetto/{id}")
+    public String deletePacchetto(@PathVariable("id") Long id,
+                                  RedirectAttributes redirectAttributes){
+        Pacchetto pacchetto = this.pacchettoService.findPacchettoById(id);
+        this.pacchettoService.deletePacchetto(pacchetto);
+        redirectAttributes.addFlashAttribute("successmsg",
+                "Il pacchetto " + pacchetto.getNome() + " è stato eliminato con successo!");
+        return "redirect:/dashboard";
+    }
+
+    /**
+     * Il metodo gestisce il reindirizzamento alla pagina per la modifica del pacchetto.
+     * @param id
+     * @param model
+     * @return admin/cp-pacchetti-update.html
+     */
+    @GetMapping("/update/pacchetto/{id}")
+    public String getUpdatePacchetto(@PathVariable("id") Long id,
+                                     Model model){
+        model.addAttribute("pacchetto", this.pacchettoService.findPacchettoById(id));
+        model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
+        model.addAttribute("referenti", this.referenteService.findAllReferenti());
+        model.addAttribute("pacchetti", this.pacchettoService.findAllPacchetti());
+        return "admin/cp-pacchetti-update";
+    }
+
+    /**
+     *
+     * @param pacchetto
+     * @param bindingResult
+     * @param redirectAttributes
+     * @param model
+     * @return
+     */
+    @PostMapping("/update/pacchetto")
+    public String updatePacchetto(@Valid @ModelAttribute("pacchetto") Pacchetto pacchetto,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes, Model model){
+        if(!bindingResult.hasErrors()){
+            this.pacchettoService.inserisci(pacchetto);
+            redirectAttributes.addFlashAttribute("successmsg",
+                    "Il pacchetto " + pacchetto.getNome()
+                            + " è stato aggiornato con successo!");
+            return "redirect:/dashboard";
+        }
+
+        model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
+        model.addAttribute("referenti", this.referenteService.findAllReferenti());
+        model.addAttribute("pacchetti", this.pacchettoService.findAllPacchetti());
+        return "admin/cp-pacchetti-update";
     }
 }

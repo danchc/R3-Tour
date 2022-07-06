@@ -91,6 +91,14 @@ public class ReferenteController {
         return "admin/cp-referenti-update";
     }
 
+    /**
+     *
+     * @param referente
+     * @param bindingResult
+     * @param redirectAttributes
+     * @param model
+     * @return
+     */
     @PostMapping("/update/referente")
     public String updateReferente(@Valid @ModelAttribute("referente") Referente referente,
                                   BindingResult bindingResult,
@@ -105,7 +113,7 @@ public class ReferenteController {
 
         model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
         model.addAttribute("referenti", this.referenteService.findAllReferenti());
-        return "admin/cp-referenti";
+        return "admin/cp-referenti-update";
     }
 
 }
