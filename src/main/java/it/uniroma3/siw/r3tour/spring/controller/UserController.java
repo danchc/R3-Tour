@@ -13,9 +13,16 @@ public class UserController {
     @Autowired
     protected CredentialsService credentialsService;
 
+    /**
+     * Il metodo gestisce il reindirizzamento alla pagina della gestione dell'account di un utente.
+     * @param httpSession
+     * @return account.html
+     */
     @GetMapping("/account")
     public String getUserAccountPage(HttpSession httpSession){
         httpSession.setAttribute("role", this.credentialsService.getCredentialsAuthenticated().getRuolo());
         return "account";
     }
+
+
 }

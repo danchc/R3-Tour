@@ -36,10 +36,12 @@ public class Pacchetto {
     private Integer numeroNotti;
     /* periodo */
 
-    @ManyToOne
+    //private String photo;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Referente referente;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Destinazione destinazione;
 
 }

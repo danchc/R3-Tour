@@ -55,6 +55,14 @@ public class PacchettoController {
         return "admin/cp-pacchetti";
     }
 
+    /**
+     *
+     * @param pacchetto
+     * @param bindingResult
+     * @param redirectAttributes
+     * @param model
+     * @return
+     */
     @PostMapping("/new/pacchetto")
     public String addNewPacchetto(@Valid @ModelAttribute("pacchetto") Pacchetto pacchetto,
                                   BindingResult bindingResult,

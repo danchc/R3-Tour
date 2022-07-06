@@ -1,0 +1,123 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        lang="it"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<head th:replace="fragments/base.html :: headerfiles(title='Aggiorna la destinazione')"></head>
+<body>
+
+<!-- container -->
+<div class="container-fluid min-vh-100">
+    <div class="row">
+
+        <!-- sidebar -->
+        <div th:replace="fragments/base.html :: dashboard-sidebar">
+        </div>
+        <!-- sidebar -->
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+                <h1 class="h2">Destinazioni</h1>
+            </div>
+
+            <div class="container-md mb-5">
+                <div class="text-center">
+                    <h1>Aggiungi una nuova destinazione</h1>
+                </div>
+
+                <form method="POST" th:action="@{/update/destinazione}" th:object="${destinazione}">
+
+                    <!-- riquadro errori -->
+                    <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                        <ul>
+                            <li th:each="err : ${#fields.errors()}" th:text="${err}" />
+                        </ul>
+                    </div>
+                    <!-- -->
+
+                    <!-- Nome input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="nome">Nome</label>
+                        <input type="text" id="nome" class="form-control" th:value="${destinazione.nome}"
+                                th:field="${destinazione.nome}"/>
+                    </div>
+
+                    <!-- Nome input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="nome">Nazione</label>
+                        <input type="text" id="nome" class="form-control" th:value="${destinazione.nazione}"
+                               th:field="${destinazione.nazione}"/>
+                    </div>
+
+                    <!-- Continente select -->
+                    <div class="col-md-4 form-outline mb-4">
+                        <label class="form-label" for="continente">Continente</label>
+                        <select th:value="${destinazione.continente.nome}"
+                                th:field="${destinazione.continente}"
+                                class="form-select" aria-label="continente select">
+                            <option th:each="continente : ${continenti}"
+                                    th:value="${continente.id}"
+                                    th:text="${continente.nome.toUpperCase()}">nome</option>
+                        </select>
+                    </div>
+
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary m-2">Aggiungi</button>
+                        <a th:href="@{/dashboard}">
+                            <button type="button" class="btn btn-primary m-2">Indietro</button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+
+            <h2>Destinazioni:</h2>
+            <!-- destinazioni aggiunte -->
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Nazione</th>
+                        <th>Continente</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="destinazione : ${destinazioni}">
+                    <tr>
+                        <td th:text="${destinazione.id}">#</td>
+                        <td th:text="${destinazione.nome}">nome</td>
+                        <td th:text="${destinazione.nazione}">nazione</td>
+                        <td th:text="${destinazione.continente.nome}">continente</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div th:if="${destinazioni?.isEmpty()}">
+                    Non sono ancora state aggiunte destinazioni.
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<!-- container -->
+
+
+<!-- Footer -->
+<footer class="bg-primary text-center text-white">
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+        © 2022 Copyright:
+        <a class="text-white" href="https://github.com/danchc">Daniel Checchia</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

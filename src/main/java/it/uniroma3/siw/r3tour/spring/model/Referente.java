@@ -32,7 +32,7 @@ public class Referente {
     @NotNull
     private String email;
 
-    @OneToMany(mappedBy = "referente", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "referente", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Pacchetto> pacchetti;
 
 }

@@ -69,7 +69,7 @@ public class ReferenteController {
         Referente referente = this.referenteService.findReferenteById(id);
         this.referenteService.deleteReferente(referente);
         redirectAttributes.addFlashAttribute("successmsg",
-                "Il referente" + referente.getNome() + " " + referente.getCognome() + "è stato eliminato con successo!");
+                "Il referente " + referente.getNome() + " " + referente.getCognome() + " è stato eliminato con successo!");
         return "redirect:/dashboard";
     }
 }

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+
 @Controller
 public class DestinazioneController {
 
@@ -60,14 +62,18 @@ public class DestinazioneController {
      */
     @PostMapping("new/destinazione")
     public String addNewDestinazione(RedirectAttributes redirectAttributes,
-                                     @ModelAttribute("destinazione") Destinazione destinazione,
-                                     BindingResult bindingResult){
+                                     @Valid @ModelAttribute("destinazione") Destinazione destinazione,
+                                     BindingResult bindingResult, Model model){
         if(!bindingResult.hasErrors()){
             this.destinazioneService.inserisci(destinazione);
-            redirectAttributes.addFlashAttribute("successmsg", "La destinazione è stata aggiunta con successo!");
+            redirectAttributes.addFlashAttribute("successmsg", "La destinazione " +
+                    destinazione.getNome() + " è stata aggiunta con successo!");
             return "redirect:/dashboard";
         }
 
+        model.addAttribute("continenti", this.continenteService.findAllContinenti());
+        model.addAttribute("referenti", this.referenteService.findAllReferenti());
+        model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
         return "cp-destinazioni";
     }
 
@@ -86,5 +92,50 @@ public class DestinazioneController {
         redirectAttributes.addFlashAttribute("successmsg", "La destinazione "
                 + destinazione.getNome() + " è stata eliminata con successo!");
         return "redirect:/dashboard";
+    }
+
+    /**
+     * Il metodo gestisce il reindirizzamento alla pagina per la modifica della destinazione.
+     * @param id
+     * @param model
+     * @return cp-destinazioni-update.html
+     */
+    @GetMapping("/update/destinazione/{id}")
+    public String getUpdateDestinazione(@PathVariable("id") Long id, Model model) {
+        Destinazione destinazione = this.destinazioneService.findDestinazioneById(id);
+        model.addAttribute("destinazione", destinazione);
+        model.addAttribute("referenti", this.referenteService.findAllReferenti());
+        model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
+        model.addAttribute("continenti", this.continenteService.findAllContinenti());
+        return "admin/cp-destinazioni-update";
+    }
+
+    /**
+     * Il metodo gestisce l'aggiornamento dei dati di una determinata destinazione all'interno del
+     * database.
+     * @param destinazione
+     * @param bindingResult
+     * @param redirectAttributes
+     * @param model
+     * @return se non ci sono errori la dashboard altrimenti il form
+     */
+    @PostMapping("/update/destinazione")
+    public String updateDestinazione(@Valid @ModelAttribute("destinazione") Destinazione destinazione,
+                                     BindingResult bindingResult,
+                                     RedirectAttributes redirectAttributes, Model model){
+
+        //se non ci sono errori
+        if(!bindingResult.hasErrors()){
+            this.destinazioneService.inserisci(destinazione);
+            redirectAttributes.addFlashAttribute("successmsg", "La destinazione " +
+                    destinazione.getNome() + " è stata aggiornata con successo!");
+            return "redirect:/dashboard";
+        }
+
+        //se ci sono errori
+        model.addAttribute("continenti", this.continenteService.findAllContinenti());
+        model.addAttribute("referenti", this.referenteService.findAllReferenti());
+        model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
+        return "admin/cp-destinazioni-update";
     }
 }
