@@ -69,6 +69,29 @@ public class CredentialsService {
     }
 
     /**
+     * Il metodo serve per cercare le credenziali di un utente in base all'id.
+     * @param id
+     * @return le credenziali dell'utente
+     */
+    public Credentials findCredentialsById(Long id) {
+        return this.credentialsRepository.findById(id).get();
+    }
+
+    /**
+     * Il metodo viene utilizzato per eliminare un determinato utente dal database.
+     * @param credentials
+     * @return
+     */
+    public boolean deleteCredentials(Credentials credentials){
+        try {
+            this.credentialsRepository.delete(credentials);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    /**
      * Il metodo trova i dati dell'utente loggato.
      * @return l'utente loggato.
      */

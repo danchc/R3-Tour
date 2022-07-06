@@ -123,8 +123,11 @@ public class AuthController {
                              HttpSession session) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Credentials credentials = credentialsService.findCredentialsByUsername(userDetails.getUsername());
-        session.setAttribute("role", credentials.getRuolo());
-        return "redirect:/";
+        if(credentials.isEnabled()){
+            session.setAttribute("role", credentials.getRuolo());
+            return "redirect:/";
+        }
+        return "error";
     }
 
     /* gestisce il logout dell'utente corrente */

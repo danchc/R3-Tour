@@ -24,10 +24,11 @@
 
             <div class="container-md mb-5">
                 <div class="text-center">
-                    <h1>Aggiungi una nuova destinazione</h1>
+                    <h1>Modifica una destinazione</h1>
                 </div>
 
                 <form method="POST" th:action="@{/update/destinazione}" th:object="${destinazione}">
+                    <input type="hidden" th:field="*{id}" th:value="*{id}">
 
                     <!-- riquadro errori -->
                     <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
@@ -65,7 +66,7 @@
 
 
                     <div class="btn-group">
-                        <button type="submit" class="btn btn-primary m-2">Aggiungi</button>
+                        <button type="submit" class="btn btn-primary m-2">Modifica</button>
                         <a th:href="@{/dashboard}">
                             <button type="button" class="btn btn-primary m-2">Indietro</button>
                         </a>

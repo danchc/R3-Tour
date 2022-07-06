@@ -4,7 +4,7 @@
         lang="it"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink">
-<head th:replace="fragments/base.html :: headerfiles(title='Dashboard')"></head>
+<head th:replace="fragments/base.html :: headerfiles(title='Aggiungi pacchetto')"></head>
 <body>
 
 <!-- container -->
@@ -104,7 +104,9 @@
 
                     <div class="btn-group">
                         <button type="submit" class="btn btn-primary m-2">Aggiungi</button>
-                        <button type="reset" class="btn btn-primary m-2">Cancella</button>
+                        <a th:href="@{/dashboard}">
+                            <button type="button" class="btn btn-primary m-2">Indietro</button>
+                        </a>
                     </div>
                 </form>
             </div>
@@ -148,7 +150,7 @@
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
         © 2022 Copyright:
-        <a class="text-white" href="">Daniel Checchia</a>
+        <a class="text-white" href="https://github.com/danchc">Daniel Checchia</a>
     </div>
     <!-- Copyright -->
 

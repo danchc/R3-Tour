@@ -50,10 +50,13 @@ public class ReferenteController {
                                   RedirectAttributes redirectAttributes, Model model){
         if(!bindingResult.hasErrors()){
             this.referenteService.inserisci(referente);
-            redirectAttributes.addFlashAttribute("successmsg", "Il referente è stato aggiunto con successo!");
+            redirectAttributes.addFlashAttribute("successmsg",
+                    "Il referente " + referente.getNome() + " " + referente.getCognome() + " è stato aggiunto con successo!");
             return "redirect:/dashboard";
         }
 
+        model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
+        model.addAttribute("referenti", this.referenteService.findAllReferenti());
         return "admin/cp-referenti";
     }
 
@@ -72,4 +75,37 @@ public class ReferenteController {
                 "Il referente " + referente.getNome() + " " + referente.getCognome() + " è stato eliminato con successo!");
         return "redirect:/dashboard";
     }
+
+    /**
+     * Il metodo gestisce il reindirizzamento alla pagina per la modifica del referente.
+     * @param id
+     * @param model
+     * @return admin/cp-referenti-update.html
+     */
+    @GetMapping("/update/referente/{id}")
+    public String getUpdateReferente(@PathVariable("id") Long id,
+                                   Model model){
+        model.addAttribute("referente", this.referenteService.findReferenteById(id));
+        model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
+        model.addAttribute("referenti", this.referenteService.findAllReferenti());
+        return "admin/cp-referenti-update";
+    }
+
+    @PostMapping("/update/referente")
+    public String updateReferente(@Valid @ModelAttribute("referente") Referente referente,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes, Model model){
+        if(!bindingResult.hasErrors()){
+            this.referenteService.inserisci(referente);
+            redirectAttributes.addFlashAttribute("successmsg",
+                    "Il referente " + referente.getNome() + " "
+                            + referente.getCognome() + " è stato aggiornato con successo!");
+            return "redirect:/dashboard";
+        }
+
+        model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
+        model.addAttribute("referenti", this.referenteService.findAllReferenti());
+        return "admin/cp-referenti";
+    }
+
 }

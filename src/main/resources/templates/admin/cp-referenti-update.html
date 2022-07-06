@@ -4,8 +4,7 @@
         lang="it"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink">
-<head th:replace="fragments/base.html :: headerfiles(title='Aggiungi referente')"></head>
-<link rel="stylesheet" href="../../static/css/style.css">
+<head th:replace="fragments/base.html :: headerfiles(title='Aggiorna referente')"></head>
 <body>
 
 <!-- container -->
@@ -24,10 +23,12 @@
 
             <div class="container-md p-5 mb-5">
                 <div class="text-center">
-                    <h1>Aggiungi un nuovo referente</h1>
+                    <h1>Modifica un referente</h1>
                 </div>
 
-                <form method="POST" th:action="@{/new/referente}" th:object="${referente}">
+                <form method="POST" th:action="@{/update/referente}" th:object="${referente}">
+
+                    <input type="hidden" th:value="*{id}" th:field="*{id}">
 
                     <!-- riquadro errori -->
                     <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
@@ -42,13 +43,15 @@
                         <div class="col">
                             <div class="form-outline">
                                 <label class="form-label" for="nome">Nome</label>
-                                <input type="text" name="nome" id="nome" class="form-control" th:field="${referente.nome}"/>
+                                <input type="text" name="nome" id="nome" class="form-control"
+                                       th:value="*{nome}" th:field="${referente.nome}"/>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-outline">
                                 <label class="form-label" for="cognome">Cognome</label>
-                                <input type="text" name="cognome" id="cognome" class="form-control" th:field="${referente.cognome}"/>
+                                <input type="text" name="cognome" id="cognome" class="form-control"
+                                       th:value="*{cognome}" th:field="${referente.cognome}"/>
                             </div>
                         </div>
                     </div>
@@ -58,13 +61,15 @@
                         <div class="col">
                             <div class="form-outline">
                                 <label class="form-label" for="telefono">Telefono</label>
-                                <input type="text" name="telefono" id="telefono" class="form-control" th:field="${referente.telefono}"/>
+                                <input type="text" name="telefono" id="telefono" class="form-control"
+                                       th:value="*{telefono}" th:field="${referente.telefono}"/>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-outline">
                                 <label class="form-label" for="email">E-mail</label>
-                                <input type="email" name="email" id="email" class="form-control" th:field="${referente.email}"/>
+                                <input type="email" name="email" id="email" class="form-control"
+                                       th:value="*{email}" th:field="${referente.email}"/>
                             </div>
                         </div>
                     </div>
@@ -73,7 +78,7 @@
 
 
                     <div class="btn-group">
-                        <button type="submit" class="btn btn-primary m-2">Aggiungi</button>
+                        <button type="submit" class="btn btn-primary m-2">Modifica</button>
                         <a th:href="@{/dashboard}">
                             <button type="button" class="btn btn-primary m-2">Indietro</button>
                         </a>

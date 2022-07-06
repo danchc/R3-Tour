@@ -92,7 +92,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 //retrieve username and role
                 .authoritiesByUsernameQuery("SELECT username, ruolo FROM credentials WHERE username=?")
                 //retrieve username, password and a boolean flag specifying whether the user is enabled or not (always enabled in our case)
-                .usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
+                .usersByUsernameQuery("SELECT username, password, 1 as isEnabled FROM credentials WHERE username=?");
     }
 
     /**
