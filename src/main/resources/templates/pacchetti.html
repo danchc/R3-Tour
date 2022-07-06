@@ -6,48 +6,75 @@
 <head th:replace="fragments/base.html :: headerfiles(title='I nostri pacchetti')"></head>
 <body>
 
-<!--header-->
-<header th:replace="fragments/base.html :: header-base">
-</header>
-<!-- end header -->
+  <!--header-->
+  <header th:replace="fragments/base.html :: header-base">
+  </header>
+  <!-- end header -->
 
-<!--navbar-->
-<nav sec:authorize="isAnonymous()" th:replace="fragments/base.html :: navbar"></nav>
-<!--navbar-->
+  <!--navbar-->
+  <nav sec:authorize="isAnonymous()" th:replace="fragments/base.html :: navbar"></nav>
+  <!--navbar-->
 
-<!--navbar-->
-<nav sec:authorize="isAuthenticated()" th:replace="fragments/base_default.html :: navbar"></nav>
-<!--navbar-->
-  
-  <div class="container text-center mt-5">
-    <h1>I nostri pacchetti</h1>
-    <p class="lead">
-      Stai cercando un posto dove andare? Dai un'occhiata alle nostre offerte.
-  </p>
-  </div>
+  <!--navbar-->
+  <nav sec:authorize="isAuthenticated()" th:replace="fragments/base_default.html :: navbar"></nav>
+  <!--navbar-->
 
-  <div class="card-deck row p-5 m-1 justify-content-center align-items-center">
-    <div th:each="pacchetto : ${pacchetti}" class="card p-0 m-2" style="width: 21rem;">
-      <img class="card-img-top" th:src="@{/images/destinazioni/rome.jpg}" style="height: 175px" alt="trip-image">
-      <div class="card-body">
-        <h5 class="card-title" th:text="${pacchetto.nome}">nome pacchetto</h5>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Periodo: <span th:text="${pacchetto.numeroGiorni}"></span> giorni e <span th:text="${pacchetto.numeroNotti}"> notti</span> notti</li>
-        <li class="list-group-item">Referente: <span th:text="|${pacchetto.referente.nome} ${pacchetto.referente.cognome}|">nome e cognome referente</span></li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link"><button class="btn btn-primary">Scopri di più</button></a>
-        <a th:href="@{/chisiamo}" class="card-link"><button class="btn btn-primary">Contattaci</button></a>
+  <!-- container contenuto -->
+  <div th:unless="${pacchetti?.isEmpty()}" class="container">
+
+    <!-- titolo principale -->
+    <div class="container text-center mt-5">
+      <h1>I nostri pacchetti</h1>
+      <p class="lead">
+        Stai cercando un posto dove andare? Dai un'occhiata alle nostre offerte.
+      </p>
+    </div>
+    <!-- fine titolo principale -->
+
+    <!-- container card -->
+    <div class="card-deck row p-5 m-1 justify-content-center align-items-center">
+      <div th:each="pacchetto : ${pacchetti}" class="card p-0 m-2" style="width: 21rem;">
+        <img class="card-img-top" th:src="@{/images/destinazioni/rome.jpg}" style="height: 175px" alt="trip-image">
+        <div class="card-body">
+          <strong><h5 class="card-title" th:text="${pacchetto.nome}">nome pacchetto</h5></strong>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Periodo:</strong> <span th:text="${pacchetto.numeroGiorni}"></span> giorni e <span th:text="${pacchetto.numeroNotti}"> notti</span> notti</li>
+          <li class="list-group-item"><strong>Referente:</strong> <span th:text="|${pacchetto.referente.nome} ${pacchetto.referente.cognome}|">nome e cognome referente</span></li>
+        </ul>
+        <div class="card-body">
+          <a href="#" class="card-link"><button class="btn btn-primary">Scopri di più</button></a>
+          <a th:href="@{/chisiamo}" class="card-link"><button class="btn btn-primary">Contattaci</button></a>
+        </div>
       </div>
     </div>
+    <!-- fine container card -->
+
   </div>
+  <!-- container contenuto -->
 
-  <!-- fine container card -->
 
-<!-- footer -->
-<footer th:replace="fragments/base.html :: footer"></footer>
-<!-- footer -->
+  <!-- empty pacchetti -->
+  <div th:if="${pacchetti?.isEmpty()}" class="container-fluid m-4">
+    <div class="justify-content-center align-items-center flex-column">
+
+      <!-- void img -->
+      <div class="container img-fluid text-center">
+        <img th:src="@{/images/pacchetti/void.svg}" class="img-fluid" alt="empty" width="400">
+      </div>
+
+      <!-- titolo -->
+      <div class="container text-center mt-4">
+        <h1>Non ci sono pacchetti disponibili</h1>
+      </div>
+
+    </div>
+  </div>
+  <!-- empty pacchetti -->
+
+  <!-- footer -->
+  <footer th:replace="fragments/base.html :: footer"></footer>
+  <!-- footer -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 </html>
