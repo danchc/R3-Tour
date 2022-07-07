@@ -65,6 +65,14 @@ public class CredentialsController {
         return "account-update";
     }
 
+    /**
+     * Il metodo viene utilizzato per inviare i dati al server ed aggiornare l'entità nel database.
+     * @param credentials
+     * @param user
+     * @param bindingResult
+     * @param redirectAttributes
+     * @return se non ci sono errori torna alla pagina dell'account
+     */
     @PostMapping("/update/utente")
     public String updateUtente(@Valid @ModelAttribute("credentials") Credentials credentials,
                                @Valid @ModelAttribute("user") User user,
@@ -77,6 +85,18 @@ public class CredentialsController {
         this.credentialsService.update(credentials);
         redirectAttributes.addFlashAttribute("successmsg", "Aggiornato con successo!");
         return "redirect:/account";
+    }
+
+    /**
+     * Il metodo viene utilizzato per reindirizzare l'utente alla pagina dei suoi pacchetti acquistati.
+     * @param model
+     * @return utente/pacchetti.html
+     */
+    @GetMapping("/utente/pacchetti")
+    public String getPacchettiPrenotati(Model model){
+        model.addAttribute("user", this.credentialsService.getCredentialsAuthenticated().getUser());
+        model.addAttribute("credentials", this.credentialsService.getCredentialsAuthenticated());
+        return "user/pacchetti";
     }
 
 

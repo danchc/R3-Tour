@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -34,4 +35,6 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataNascita;
 
+    @ManyToMany
+    private List<Pacchetto> pacchetti;
 }
