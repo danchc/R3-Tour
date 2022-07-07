@@ -46,7 +46,7 @@
             
           <div class=" container text-center mt-5 flex-column">
             <div class="container">
-              <a th:href="@{'/update/utente' + {credentials.id}}"><button type="button" class="btn btn-primary w-100 mb-3">Modifica il tuo profilo</button></a>
+              <a th:href="@{'/update/utente' + ${credentials.id}}"><button type="button" class="btn btn-primary w-100 mb-3">Modifica il tuo profilo</button></a>
               <a th:href="@{/utente/pacchetti}"><button type="button" class="btn btn-primary w-100 mt-2 mb-3">I tuoi pacchetti</button></a>
               <a th:href="@{/logout}"><button type="button" class="btn btn-primary w-100 mt-2 mb-3">Logout</button></a>
             </div>
@@ -100,7 +100,7 @@
                     <div class="form-outline">
                       <h5><strong>Password:</strong></h5>
                       <div class="border-bottom border-primary p-2">
-                        <span th:text="${credentials.password}">password</span>
+                        <span>**********</span>
                       </div>
                     </div>
                 </div>

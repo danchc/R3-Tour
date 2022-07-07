@@ -75,17 +75,21 @@ public class AuthController {
      */
     @PostMapping("/signup")
     public String register(@Valid @ModelAttribute("credentials") Credentials credentials,
-                              @Valid @ModelAttribute("user") User user, BindingResult bindingResult) throws MessagingException, UnsupportedEncodingException {
+                              @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
+                           String passwordconfirm, Model model) {
+
+
         this.credentialsValidator.validate(credentials, bindingResult);
         this.userValidator.validate(user, bindingResult);
 
         if(bindingResult.hasErrors()){
-            return "redirect:/register-user";
+            return "register-user";
         }
 
         credentials.setUser(user);
         this.credentialsService.inserisci(credentials);
 
+        /*
         //creo il token per la conferma dell'email
         ConfirmationToken confirmationToken = new ConfirmationToken(credentials);
         confirmationTokenRepository.save(confirmationToken);
@@ -97,7 +101,7 @@ public class AuthController {
         simpleMailMessage.setText("Per confermare clicca : " + "http://localhost:8090/confirm-account?token="
                 + confirmationToken.getConfirmationToken());
         emailSenderService.sendEmail(simpleMailMessage);
-
+*/
         return "success";
     }
 
