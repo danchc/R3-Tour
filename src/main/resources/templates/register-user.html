@@ -46,7 +46,9 @@
             <!-- riquadro errori -->
             <div class="container" th:if="${#fields.hasAnyErrors()}">
                 <div class="error alert-danger">
-                    <p th:each="error : ${#fields.allErrors()}" th:text="error"></p>
+                    <ul>
+                        <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+                    </ul>
                 </div>
             </div>
             <!-- -->

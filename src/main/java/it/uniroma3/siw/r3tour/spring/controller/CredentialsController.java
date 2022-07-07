@@ -1,15 +1,20 @@
 package it.uniroma3.siw.r3tour.spring.controller;
 
 import it.uniroma3.siw.r3tour.spring.model.Credentials;
+import it.uniroma3.siw.r3tour.spring.model.User;
 import it.uniroma3.siw.r3tour.spring.service.CredentialsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class CredentialsController {
@@ -56,7 +61,22 @@ public class CredentialsController {
     public String getUpdateUtente(@PathVariable("id") Long id, Model model){
         Credentials credentials = this.credentialsService.findCredentialsById(id);
         model.addAttribute("credentials", credentials);
+        model.addAttribute("user", credentials.getUser());
         return "account-update";
+    }
+
+    @PostMapping("/update/utente")
+    public String updateUtente(@Valid @ModelAttribute("credentials") Credentials credentials,
+                               @Valid @ModelAttribute("user") User user,
+                               BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()){
+            return "account-update";
+        }
+
+        credentials.setUser(user);
+        this.credentialsService.update(credentials);
+        redirectAttributes.addFlashAttribute("successmsg", "Aggiornato con successo!");
+        return "redirect:/account";
     }
 
 

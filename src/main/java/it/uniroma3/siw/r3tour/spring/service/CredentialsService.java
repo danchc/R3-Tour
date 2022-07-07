@@ -34,6 +34,16 @@ public class CredentialsService {
     }
 
     /**
+     * Il metodo gestisce l'aggiornamento dell'entità Credentials.
+     * @param credentials
+     * @return l'entità Credentials aggiornata
+     */
+    @Transactional
+    public Credentials update(Credentials credentials){
+        return this.credentialsRepository.save(credentials);
+    }
+
+    /**
      * Il metodo ritorna true se l'utente con un determinato username esiste nel database, false altrimenti
      * @param username
      * @return true o false
