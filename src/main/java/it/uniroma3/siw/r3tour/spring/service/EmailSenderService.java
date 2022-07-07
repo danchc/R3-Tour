@@ -1,7 +1,6 @@
 package it.uniroma3.siw.r3tour.spring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 @Service("emailSenderService")
 public class EmailSenderService {
-
 
     private JavaMailSender javaMailSender;
 

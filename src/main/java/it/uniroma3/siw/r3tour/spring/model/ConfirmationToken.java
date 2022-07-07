@@ -1,5 +1,6 @@
 package it.uniroma3.siw.r3tour.spring.model;
 
+import it.uniroma3.siw.r3tour.spring.model.Credentials;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,9 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class ConfirmationToken {
 
     @Id

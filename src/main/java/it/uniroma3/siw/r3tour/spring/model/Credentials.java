@@ -1,14 +1,11 @@
 package it.uniroma3.siw.r3tour.spring.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @Entity
 @Getter @Setter @NoArgsConstructor

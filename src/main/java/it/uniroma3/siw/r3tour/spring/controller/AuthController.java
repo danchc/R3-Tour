@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 
 
 @Controller
@@ -35,6 +37,7 @@ public class AuthController {
 
     @Autowired
     protected UserValidator userValidator;
+
 
     @Autowired
     protected ConfirmationTokenRepository confirmationTokenRepository;
@@ -72,7 +75,7 @@ public class AuthController {
      */
     @PostMapping("/signup")
     public String register(@Valid @ModelAttribute("credentials") Credentials credentials,
-                              @Valid @ModelAttribute("user") User user, BindingResult bindingResult){
+                              @Valid @ModelAttribute("user") User user, BindingResult bindingResult) throws MessagingException, UnsupportedEncodingException {
         this.credentialsValidator.validate(credentials, bindingResult);
         this.userValidator.validate(user, bindingResult);
 
@@ -82,18 +85,19 @@ public class AuthController {
 
         credentials.setUser(user);
         this.credentialsService.inserisci(credentials);
+
         //creo il token per la conferma dell'email
         ConfirmationToken confirmationToken = new ConfirmationToken(credentials);
-        this.confirmationTokenRepository.save(confirmationToken);
+        confirmationTokenRepository.save(confirmationToken);
         //invio l'email di conferma
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(credentials.getEmail());
         simpleMailMessage.setSubject("Conferma la registrazione!");
         simpleMailMessage.setFrom("r3.cate@gmail.com");
-        simpleMailMessage.setText("Per confermare clicca : "
-                + "http://localhost:8081/confirm-account?token="
+        simpleMailMessage.setText("Per confermare clicca : " + "http://localhost:8090/confirm-account?token="
                 + confirmationToken.getConfirmationToken());
         emailSenderService.sendEmail(simpleMailMessage);
+
         return "success";
     }
 
