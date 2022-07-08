@@ -32,127 +32,141 @@
       
           <!-- right -->
           <div class="row g-5">
+
             <div class="col-md-5 col-lg-4 order-md-last">
+
               <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-primary">Your cart</span>
-                <span class="badge bg-primary rounded-pill">3</span>
+                <span class="text-primary">Riepilogo</span>
               </h4>
+
+              <!-- inizio lista -->
               <ul class="list-group mb-3">
+
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                   <div>
-                    <h6 class="my-0">Product name</h6>
-                    <small class="text-muted">Brief description</small>
+                    <h6 class="my-0">Nome pacchetto</h6>
+                    <small class="text-muted" th:text="${pacchetto.nome}">nome</small>
                   </div>
-                  <span class="text-muted">$12</span>
                 </li>
+
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                   <div>
-                    <h6 class="my-0">Second product</h6>
-                    <small class="text-muted">Brief description</small>
+                    <h6 class="my-0">Destinazione</h6>
+                    <small class="text-muted" th:text="${pacchetto.destinazione.nome}">destinazione</small>
                   </div>
-                  <span class="text-muted">$8</span>
                 </li>
+
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                   <div>
-                    <h6 class="my-0">Third item</h6>
-                    <small class="text-muted">Brief description</small>
+                    <h6 class="my-0">Periodo</h6>
+                    <small class="text-muted"><span th:text="${pacchetto.numeroGiorni}">giorni</span><span>giorni, </span>
+                      <span th:text="${pacchetto.numeroNotti}">notti</span> notti</small>
                   </div>
-                  <span class="text-muted">$5</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between bg-light">
-                  <div class="text-success">
-                    <h6 class="my-0">Promo code</h6>
-                    <small>EXAMPLECODE</small>
-                  </div>
-                  <span class="text-success">−$5</span>
-                </li>
+
                 <li class="list-group-item d-flex justify-content-between">
-                  <span>Total (USD)</span>
-                  <strong>$20</strong>
+                  <span>Costo totale (EUR)</span>
+                  <strong><p th:text="${'€' + ${pacchetto.prezzo}}">€soldi</p></strong>
                 </li>
               </ul>
-      
-              <form class="card p-2">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Promo code">
-                  <button type="submit" class="btn btn-secondary">Redeem</button>
-                </div>
-              </form>
+
             </div>
 
             <!-- left -->
             <div class="col-md-7 col-lg-8">
               
-                <h4 class="mb-3">Pacchetto scelto</h4>
+              <!-- titolo -->
+              <h4 class="mb-3">Pacchetto scelto</h4>
+
+              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+
+                <div class="col p-4 d-flex flex-column position-static">
+                  <h3 class="mb-0" th:text="${pacchetto.nome}">Nome pacchetto</h3>
+                  <hr>
+                  <p class="card-text mb-auto" th:text="${pacchetto.descrizione}">Descrizione pacchetto</p>
+                </div>
+
+                <div class="col-auto d-none d-lg-block">
+                  <img src="../static/images/index/rome.jpg" width="400" height="250">
+        
+                </div>
+              </div>
+
+              <hr>
+
+              <!-- titolo pagamento-->
+              <h4 class="mb-3">Pagamento</h4>
 
 
-                <hr>
+            <form class="needs-validation was-validated" novalidate="">
+              <div class="my-3">
 
-                <form>
-                    <h4 class="mb-3">Pagamento</h4>
-                    <div class="my-3">
-                    <div class="form-check">
-                        <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
-                        <label class="form-check-label" for="credit">Credit card</label>
+                <div class="form-check">
+                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
+                    <label class="form-check-label" for="credit">Carta di credito</label>
+                </div>
+
+                <div class="form-check">
+                    <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="">
+                    <label class="form-check-label" for="debit">Carta di debito</label>
+                </div>
+
+              </div>
+    
+              <div class="row gy-3">
+                <div class="col-md-6">
+                    <label for="cc-name" class="form-label">Nome sulla carta</label>
+                    <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                    <small class="text-muted">Il nome completo presente sulla carta</small>
+                    <div class="invalid-feedback">
+                      Inserire un nome
                     </div>
-                    <div class="form-check">
-                        <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="">
-                        <label class="form-check-label" for="debit">Debit card</label>
+                </div>
+    
+                <div class="col-md-6">
+                    <label for="cc-number" class="form-label">Numero della carta</label>
+                    <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                    <div class="invalid-feedback">
+                      Inserire il numero della carta
                     </div>
-                    <div class="form-check">
-                        <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required="">
-                        <label class="form-check-label" for="paypal">PayPal</label>
+                </div>
+    
+                <div class="col-md-3">
+                    <label for="cc-expiration" class="form-label">Scadenza</label>
+                    <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                    <div class="invalid-feedback">
+                      Inserire la scadenza
                     </div>
+                </div>
+    
+                <div class="col-md-3">
+                    <label for="cc-cvv" class="form-label">CVV</label>
+                    <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                    <div class="invalid-feedback">
+                      Inserire il codice di sicurezza
                     </div>
-        
-                    <div class="row gy-3">
-                    <div class="col-md-6">
-                        <label for="cc-name" class="form-label">Name on card</label>
-                        <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-                        <small class="text-muted">Full name as displayed on card</small>
-                        <div class="invalid-feedback">
-                        Name on card is required
-                        </div>
-                    </div>
-        
-                    <div class="col-md-6">
-                        <label for="cc-number" class="form-label">Credit card number</label>
-                        <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-                        <div class="invalid-feedback">
-                        Credit card number is required
-                        </div>
-                    </div>
-        
-                    <div class="col-md-3">
-                        <label for="cc-expiration" class="form-label">Expiration</label>
-                        <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
-                        <div class="invalid-feedback">
-                        Expiration date required
-                        </div>
-                    </div>
-        
-                    <div class="col-md-3">
-                        <label for="cc-cvv" class="form-label">CVV</label>
-                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-                        <div class="invalid-feedback">
-                        Security code required
-                        </div>
-                    </div>
-                    </div>
-      
-                    <hr class="my-4">
-      
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Conferma</button>
-              </form>
-            </div>
+                </div>
+              </div>
+    
+              <hr class="my-4">
+
+              <a href="account-update.html">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Conferma</button>
+              </a>
+              <a th:href="@{'/pacchetto/' + ${pacchetto.id}}">
+                <button class="w-100 btn btn-secondary btn-lg mt-4" type="submit">Indietro</button>
+              </a>
+            </form>
+            
+
           </div>
-        </main>
+        </div>
+      </main>
     </div>
 
 
-<!-- footer -->
-<!-- Footer -->
-<footer th:fragment="footer" class="bg-primary text-center text-white">
+  <!-- Footer -->
+  <footer th:fragment="footer" class="bg-primary text-center text-white">
 
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
@@ -161,9 +175,11 @@
     </div>
     <!-- Copyright -->
 
-</footer>
+  </footer>
     
 <!-- Footer -->
-<!-- footer -->
+
+<script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="form-validation.js"></script>
 </body>
 </html>
