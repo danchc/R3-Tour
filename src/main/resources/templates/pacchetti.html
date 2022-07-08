@@ -43,7 +43,7 @@
           <li class="list-group-item"><strong>Referente:</strong> <span th:text="|${pacchetto.referente.nome} ${pacchetto.referente.cognome}|">nome e cognome referente</span></li>
         </ul>
         <div class="card-body">
-          <a href="#" class="card-link"><button class="btn btn-primary">Scopri di più</button></a>
+          <a th:href="@{'/pacchetto/' + ${pacchetto.id}}" class="card-link"><button class="btn btn-primary">Scopri di più</button></a>
           <a th:href="@{/chisiamo}" class="card-link"><button class="btn btn-primary">Contattaci</button></a>
         </div>
       </div>

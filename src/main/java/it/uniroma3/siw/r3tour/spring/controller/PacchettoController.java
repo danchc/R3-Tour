@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class PacchettoController {
@@ -138,5 +139,29 @@ public class PacchettoController {
         model.addAttribute("referenti", this.referenteService.findAllReferenti());
         model.addAttribute("pacchetti", this.pacchettoService.findAllPacchetti());
         return "admin/cp-pacchetti-update";
+    }
+
+    /**
+     * Questo metodo viene utilizzato per reindirizzare l'utente alla pagina dove sono
+     * presenti tutte le caratteristiche di un determinato pacchetto.
+     * @param id
+     * @param model
+     * @return pacchetto.html
+     */
+    @GetMapping("/pacchetto/{id}")
+    public String getPaginaPacchetto(@PathVariable("id") Long id,
+                                     Model model) {
+
+        Pacchetto pacchetto = this.pacchettoService.findPacchettoById(id);
+        model.addAttribute("pacchetto", pacchetto);
+        return "pacchetto";
+    }
+
+    @GetMapping("/pacchetti/{nome}")
+    public String getPacchettiDaDestinazione(@PathVariable("nome") String nome,
+                                             Model model){
+        List<Pacchetto> pacchetti = this.pacchettoService.findPacchettiByDestinazione(nome);
+        model.addAttribute("pacchetti", pacchetti);
+        return "pacchetti";
     }
 }

@@ -56,4 +56,9 @@ public class PacchettoService {
             return false;
         }
     }
+
+
+    public List<Pacchetto> findPacchettiByDestinazione(String nomeDestinazione){
+        return this.pacchettoRepository.findAllByDestinazione_Nome(nomeDestinazione);
+    }
 }
