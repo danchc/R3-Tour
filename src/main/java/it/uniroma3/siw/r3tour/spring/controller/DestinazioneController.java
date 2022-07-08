@@ -36,6 +36,7 @@ public class DestinazioneController {
     @GetMapping("/destinazioni")
     public String getPageDestinazioni(Model model) {
         model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
+        model.addAttribute("continenti", this.continenteService.findAllContinenti());
         return "destinazioni";
     }
 

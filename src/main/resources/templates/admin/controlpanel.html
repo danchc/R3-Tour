@@ -36,6 +36,7 @@
                 <h1 class="h2">Dashboard</h1>
             </div>
 
+            <!-- messaggio di successo -->
             <div class="container d-flex justify-content-center align-items-center mt-4">
                 <div th:if="${successmsg}" class="alert alert-success d-flex align-items-center w-50" role="alert">
 
@@ -56,6 +57,7 @@
 
                 </div>
             </div>
+            <!-- messaggio di successo -->
 
             <!-- informazioni -->
             <div class="container mt-4">
@@ -154,7 +156,7 @@
                             <a th:href="@{'/update/destinazione/' + ${destinazione.id}}">
                                 <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
                             </a>
-                            <a th:href="@{'/delete/destinazione' + '/' + ${destinazione.id}}">
+                            <a th:href="@{'/delete/destinazione/' + ${destinazione.id}}">
                                 <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
                             </a>
                         </td>

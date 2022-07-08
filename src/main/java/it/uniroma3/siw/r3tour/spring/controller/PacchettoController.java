@@ -157,11 +157,29 @@ public class PacchettoController {
         return "pacchetto";
     }
 
+
+    /**
+     * Questo metodo viene utilizzato per visualizzare tutti i pacchetti in base al nome
+     * della destinazione.
+     * @param nome
+     * @param model
+     * @return pacchetti.html (raggruppati per nome)
+     */
     @GetMapping("/pacchetti/{nome}")
     public String getPacchettiDaDestinazione(@PathVariable("nome") String nome,
                                              Model model){
         List<Pacchetto> pacchetti = this.pacchettoService.findPacchettiByDestinazione(nome);
         model.addAttribute("pacchetti", pacchetti);
         return "pacchetti";
+    }
+
+    @GetMapping("/checkout/pacchetto/{id}")
+    public String getPreOrderPage(@PathVariable("id") Long id,
+                                  Model model){
+
+        Pacchetto pacchetto = this.pacchettoService.findPacchettoById(id);
+        model.addAttribute("pacchetto", pacchetto);
+        return "checkout";
+
     }
 }
