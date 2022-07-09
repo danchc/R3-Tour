@@ -2,6 +2,7 @@ package it.uniroma3.siw.r3tour.spring.controller;
 
 import it.uniroma3.siw.r3tour.spring.model.Pacchetto;
 import it.uniroma3.siw.r3tour.spring.model.Referente;
+import it.uniroma3.siw.r3tour.spring.service.CredentialsService;
 import it.uniroma3.siw.r3tour.spring.service.DestinazioneService;
 import it.uniroma3.siw.r3tour.spring.service.PacchettoService;
 import it.uniroma3.siw.r3tour.spring.service.ReferenteService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class PacchettoController {
 
     @Autowired
     protected ReferenteService referenteService;
+
+    @Autowired
+    protected CredentialsService credentialsService;
 
     /**
      * Questo metodo ci reindirizza alla pagina dei pacchetti con la lista dei
@@ -150,10 +155,11 @@ public class PacchettoController {
      */
     @GetMapping("/pacchetto/{id}")
     public String getPaginaPacchetto(@PathVariable("id") Long id,
-                                     Model model) {
+                                     Model model, HttpSession httpSession) {
 
         Pacchetto pacchetto = this.pacchettoService.findPacchettoById(id);
         model.addAttribute("pacchetto", pacchetto);
+        httpSession.setAttribute("role", this.credentialsService.getCredentialsAuthenticated().getRuolo());
         return "pacchetto";
     }
 
@@ -173,6 +179,12 @@ public class PacchettoController {
         return "pacchetti";
     }
 
+    /**
+     * Il metodo viene utilizzato per il reindirizzamento alla pagina della prenotazione (pagamento) del pacchetto.
+     * @param id
+     * @param model
+     * @return checkout.html
+     */
     @GetMapping("/checkout/pacchetto/{id}")
     public String getPreOrderPage(@PathVariable("id") Long id,
                                   Model model){

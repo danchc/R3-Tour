@@ -43,7 +43,7 @@
         </div>
 
         <!-- btn -->
-        <div class="container d-flex justify-content-lg-end">
+        <div class="container d-flex justify-content-lg-end w-25">
             <div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -67,6 +67,7 @@
     </div>
 </div>
 
+<!-- gruppo info pacchetto -->
 <div class="m-5 h-100 p-5 bg-light border rounded-3">
     <div class="row">
 
@@ -126,11 +127,22 @@
 
         </div>
 
+
+        <!-- gruppo bottoni -->
+
         <div class="col-lg-5">
             <div class="container d-flex flex-column m-3 p-5">
 
+
+                <!-- bottone prenota (se admin allora disabilitato) -->
+                <a th:if="${session.role.equals('ADMIN')}"
+                   th:href="@{'/checkout/pacchetto/' + ${pacchetto.id}}" class="btn btn-outline-primary m-2 w-100 disabled" aria-disabled="true">
+                    Prenota
+                </a>
+
                 <!-- bottone prenota -->
-                <a th:href="@{'/checkout/pacchetto/' + ${pacchetto.id}}">
+                <a th:unless="${session.role.equals('ADMIN')}"
+                   th:href="@{'/checkout/pacchetto/' + ${pacchetto.id}}">
                     <button class="btn btn-outline-primary m-2 w-100" type="button">Prenota</button>
                 </a>
 

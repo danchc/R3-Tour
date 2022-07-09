@@ -1,8 +1,10 @@
 package it.uniroma3.siw.r3tour.spring.controller;
 
 import it.uniroma3.siw.r3tour.spring.model.Credentials;
+import it.uniroma3.siw.r3tour.spring.model.Pacchetto;
 import it.uniroma3.siw.r3tour.spring.model.User;
 import it.uniroma3.siw.r3tour.spring.service.CredentialsService;
+import it.uniroma3.siw.r3tour.spring.service.PacchettoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +17,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class CredentialsController {
 
     @Autowired
     protected CredentialsService credentialsService;
+
+    @Autowired
+    protected PacchettoService pacchettoService;
 
     /**
      * Il metodo gestisce il reindirizzamento alla pagina della gestione dell'account di un utente.
@@ -97,6 +103,36 @@ public class CredentialsController {
         model.addAttribute("user", this.credentialsService.getCredentialsAuthenticated().getUser());
         model.addAttribute("credentials", this.credentialsService.getCredentialsAuthenticated());
         return "user/pacchetti";
+    }
+
+    /**
+     * Il metodo viene utilizzato per gestire la prenotazione una volta effettuato il pagamento.
+     * @param id
+     * @param redirectAttributes
+     * @return la pagina del pacchetto con un messaggio di prenotazione effettuata
+     */
+    @GetMapping("/success/pacchetto/{id}")
+    public String addPacchettoToUser(@PathVariable("id") Long id,
+                                     RedirectAttributes redirectAttributes) {
+        Pacchetto pacchettoPrenotato = this.pacchettoService.findPacchettoById(id);
+        Credentials credentials = this.credentialsService.getCredentialsAuthenticated();
+        User user = credentials.getUser();
+        List<Pacchetto> prenotazioni = user.getPacchetti();
+
+        //se non ci sono prenotazioni aggiungi
+        if(prenotazioni.isEmpty()) {
+            prenotazioni.add(pacchettoPrenotato);
+        } else if(prenotazioni.contains(pacchettoPrenotato)){
+            //già ha prenotato questo pacchetto, non può aggiungerlo
+        } else {
+            //se è diverso e ci sono altre prenotazioni allora aggiungi
+            prenotazioni.add(pacchettoPrenotato);
+        }
+
+        this.credentialsService.update(credentials);
+        redirectAttributes.addFlashAttribute("successmsg", "Complimenti! La prenotazione del pacchetto "
+        + pacchettoPrenotato.getNome() + " è stata effettuata con successo. Buon viaggio!");
+        return "redirect:/pacchetto/{id}";
     }
 
 
