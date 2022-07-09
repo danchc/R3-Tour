@@ -1,5 +1,6 @@
 package it.uniroma3.siw.r3tour.spring.controller;
 
+import it.uniroma3.siw.r3tour.spring.model.Credentials;
 import it.uniroma3.siw.r3tour.spring.model.Pacchetto;
 import it.uniroma3.siw.r3tour.spring.model.Referente;
 import it.uniroma3.siw.r3tour.spring.service.CredentialsService;
@@ -187,9 +188,18 @@ public class PacchettoController {
      */
     @GetMapping("/checkout/pacchetto/{id}")
     public String getPreOrderPage(@PathVariable("id") Long id,
-                                  Model model){
+                                  Model model, RedirectAttributes redirectAttributes){
 
         Pacchetto pacchetto = this.pacchettoService.findPacchettoById(id);
+        Credentials loggedUser = this.credentialsService.getCredentialsAuthenticated();
+
+        //se l'utente ha già prenotato non va nella schermata del checkout
+        if(loggedUser.getUser().getPacchetti().contains(pacchetto)){
+            redirectAttributes.addFlashAttribute("errormsg", "Attenzione! Non è possibile prenotare il pacchetto "
+            + pacchetto.getNome() + " perché è già presente una prenotazione nel sistema.");
+            return "redirect:/pacchetto/{id}";
+        }
+
         model.addAttribute("pacchetto", pacchetto);
         return "checkout";
 

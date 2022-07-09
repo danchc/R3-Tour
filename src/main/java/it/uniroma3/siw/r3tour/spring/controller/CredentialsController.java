@@ -6,6 +6,8 @@ import it.uniroma3.siw.r3tour.spring.model.User;
 import it.uniroma3.siw.r3tour.spring.service.CredentialsService;
 import it.uniroma3.siw.r3tour.spring.service.PacchettoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +29,9 @@ public class CredentialsController {
 
     @Autowired
     protected PacchettoService pacchettoService;
+
+    @Autowired
+    protected PasswordEncoder passwordEncoder;
 
     /**
      * Il metodo gestisce il reindirizzamento alla pagina della gestione dell'account di un utente.
@@ -70,6 +75,42 @@ public class CredentialsController {
         model.addAttribute("user", credentials.getUser());
         return "account-update";
     }
+
+    /**
+     * Questo metodo gestisce il reindirizzamento dell'utente alla pagina per la modifica della sua password.
+     * @param id
+     * @param model
+     * @return account-psw-update.html
+     */
+    @GetMapping("/update/password/utente/{id}")
+    public String getUpdatePasswordUtente(@PathVariable("id") Long id, Model model) {
+        Credentials credentials = this.credentialsService.findCredentialsById(id);
+        model.addAttribute("credentials", credentials);
+        model.addAttribute("user", credentials.getUser());
+        return "account-psw-update";
+    }
+
+    @PostMapping("/update/password/utente")
+    public String updatePasswordUtente(@ModelAttribute("credentials") Credentials credentials,
+                                       @ModelAttribute("user") User user,
+                                       BindingResult bindingResult, String confirmpsw, String currentpsw,
+                                       RedirectAttributes redirectAttributes) {
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        if(passwordEncoder.matches(currentpsw, credentials.getPassword())) {
+           System.out.println("same");
+        } else {
+            bindingResult.reject("credentials.psw.not.matches");
+            return "account-psw-update";
+
+        }
+
+        redirectAttributes.addFlashAttribute("successmsg", "La password è stata modificata con successo!");
+        return "redirect:/account";
+    }
+
+
 
     /**
      * Il metodo viene utilizzato per inviare i dati al server ed aggiornare l'entità nel database.

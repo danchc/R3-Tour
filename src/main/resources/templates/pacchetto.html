@@ -31,26 +31,52 @@
 <nav sec:authorize="isAuthenticated()" th:replace="fragments/base_default.html :: navbar"></nav>
 <!--navbar-->
 
-<div class="container d-flex justify-content-center align-items-center mt-4">
-    <div th:if="${successmsg}" class="alert alert-success d-flex align-items-center w-50" role="alert">
+    <!-- messaggio di successo -->
+    <div class="container d-flex justify-content-center align-items-center mt-4">
+        <div th:if="${successmsg}" class="alert alert-success d-flex align-items-center w-50" role="alert">
 
-        <!-- icona -->
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+            <!-- icona -->
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
 
-        <!-- messaggio -->
-        <div class="container p-2 mt-3">
-            <p th:text="${successmsg}">Messaggio successo</p>
-        </div>
+            <!-- messaggio -->
+            <div class="container p-2 mt-3">
+                <p th:text="${successmsg}">Messaggio successo</p>
+            </div>
 
-        <!-- btn -->
-        <div class="container d-flex justify-content-lg-end w-25">
-            <div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <!-- btn -->
+            <div class="container d-flex justify-content-lg-end w-25">
+                <div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             </div>
         </div>
-
     </div>
-</div>
+    <!-- messaggio di successo -->
+
+    <!-- messaggio di errore -->
+    <div class="container d-flex justify-content-center align-items-center mt-4">
+        <div th:if="${errormsg}" class="alert alert-danger d-flex align-items-center w-50" role="alert">
+
+            <!-- icona -->
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+
+            <!-- messaggio -->
+            <div class="container p-2 mt-3">
+                <p th:text="${errormsg}">Messaggio successo</p>
+            </div>
+
+            <!-- btn -->
+            <div class="container d-flex justify-content-lg-end w-25">
+                <div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- messaggio di errore -->
+
+
 
 <!-- contenuto principale -->
 <div class="shadow-lg p-5 mb-4 bg-light rounded-3 m-5">
@@ -111,7 +137,7 @@
                     <h4 class="text-primary">Referente: </h4>
                 </div>
                 <div class="container col-lg-4">
-                    <a href=""><h4 th:text="|${pacchetto.referente.nome} ${pacchetto.referente.cognome}|">referente</h4></a>
+                    <a class="link-primary" data-bs-toggle="modal" data-bs-target="#referenteModal"><h4 th:text="|${pacchetto.referente.nome} ${pacchetto.referente.cognome}|">referente</h4></a>
                 </div>
             </div>
 
@@ -126,6 +152,31 @@
             
 
         </div>
+  
+        <!-- Modal -->
+        <div class="modal fade" id="referenteModal" tabindex="-1" aria-labelledby="referenteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="referenteModalLabel">Contatti referente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><span class="text-primary">E-mail:</span>
+                            <span th:text="${pacchetto.referente.email}">email</span></li>
+
+                        <li class="list-group-item"><span class="text-primary">Telefono:</span>
+                            <span th:text="${pacchetto.referente.telefono}">telefono</span></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+            </div>
+        </div>
+  
 
 
         <!-- gruppo bottoni -->
