@@ -153,8 +153,8 @@
 
                         <!-- delete & modify -->
                         <td>
-                            <a th:href="@{'/update/destinazione/' + ${destinazione.id}}">
-                                <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
+                            <a class="text-decoration-none" th:href="@{'/update/destinazione/' + ${destinazione.id}}">
+                                <button type="button" class="btn btn-primary rounded-circle"><i class="bi bi-pen"></i></button>
                             </a>
                             <a th:href="@{'/delete/destinazione/' + ${destinazione.id}}">
                                 <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
@@ -194,8 +194,8 @@
 
                         <!-- delete & modify -->
                         <td>
-                            <a th:href="@{'/update/referente/' + ${referente.id}}">
-                                <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
+                            <a class="text-decoration-none" th:href="@{'/update/referente/' + ${referente.id}}">
+                                <button type="button" class="btn btn-primary rounded-circle"><i class="bi bi-pen"></i></button>
                             </a>
                             <a th:href="@{'/delete/referente' + '/' + ${referente.id}}">
                                 <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>
@@ -233,14 +233,14 @@
                         <td th:text="${pacchetto.nome}">nome</td>
                         <td th:text="${pacchetto.descrizione}">descrizione</td>
                         <td th:text="${pacchetto.prezzo}">prezzo</td>
-                        <td><p th:text="${pacchetto.numeroGiorni + 'giorni'}">Giorni</p>-<p th:text="${pacchetto.numeroNotti + 'notti'}">Notti</p></td>
+                        <td><span th:text="${pacchetto.numeroGiorni + 'giorni'}">Giorni</span>-<span th:text="${pacchetto.numeroNotti + 'notti'}">Notti</span></td>
                         <td th:text="|${pacchetto.referente.nome} ${pacchetto.referente.cognome}|">referente</td>
                         <td th:text="${pacchetto.destinazione.nome}">destinazione</td>
 
                         <!-- delete & modify -->
                         <td>
-                            <a th:href="@{'/update/pacchetto/' + ${pacchetto.id}}">
-                                <button type="button" class="btn btn-primary"><i class="bi bi-pen"></i></button>
+                            <a class="text-decoration-none" th:href="@{'/update/pacchetto/' + ${pacchetto.id}}">
+                                <button type="button" class="btn btn-primary rounded-circle"><i class="bi bi-pen"></i></button>
                             </a>
                             <a th:href="@{'/delete/pacchetto' + '/' + ${pacchetto.id}}">
                                 <button type="button" class="btn btn-danger rounded-circle"><i class="bi bi-x-lg"></i></button>

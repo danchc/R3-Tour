@@ -28,13 +28,11 @@ public class User {
     @NotNull
     private String cognome;
 
-    @NotNull
     private String telefono;
 
-    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataNascita;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     private List<Pacchetto> pacchetti;
 }

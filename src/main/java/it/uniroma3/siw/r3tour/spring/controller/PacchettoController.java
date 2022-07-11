@@ -118,7 +118,7 @@ public class PacchettoController {
         model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
         model.addAttribute("referenti", this.referenteService.findAllReferenti());
         model.addAttribute("pacchetti", this.pacchettoService.findAllPacchetti());
-        return "admin/cp-pacchetti-update";
+        return "admin/cp-pacchetto-update";
     }
 
     /**

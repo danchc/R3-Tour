@@ -1,7 +1,9 @@
 package it.uniroma3.siw.r3tour.spring.service;
 
+import it.uniroma3.siw.r3tour.oauth.Provider;
 import it.uniroma3.siw.r3tour.spring.model.Credentials;
-import it.uniroma3.siw.r3tour.spring.model.Destinazione;
+import it.uniroma3.siw.r3tour.oauth.CustomOAuth2User;
+import it.uniroma3.siw.r3tour.spring.model.User;
 import it.uniroma3.siw.r3tour.spring.repository.CredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CredentialsService {
@@ -29,6 +32,7 @@ public class CredentialsService {
     @Transactional
     public Credentials inserisci(Credentials credentials){
         credentials.setRuolo(Credentials.RUOLO_DEFAULT);
+        credentials.setProvider(Provider.LOCAL);
         credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
         return this.credentialsRepository.save(credentials);
     }
@@ -109,5 +113,47 @@ public class CredentialsService {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Credentials credentials = this.findCredentialsByUsername(userDetails.getUsername());
         return credentials;
+    }
+
+    /**
+     * Questo metodo gestisce le operazioni dopo l'accesso di un utente attraverso
+     * l'utilizzo di OAuth2.
+     * @param username
+     * @param oAuth2User
+     */
+    public void processOAuthPostLogin(String username, CustomOAuth2User oAuth2User) {
+        Credentials newCredentials = new Credentials();
+        User newUser = new User();
+        if (!this.credentialsRepository.existsByUsername(username)) {
+            if(oAuth2User.getAttributes().keySet().contains("given_name")) {
+                newUser.setNome(oAuth2User.getAttribute("given_name"));
+                newUser.setCognome(oAuth2User.getAttribute("family_name"));
+
+                newCredentials.setEmail(oAuth2User.getAttribute("email"));
+                newCredentials.setUser(newUser);
+                newCredentials.setUsername(oAuth2User.getUsername());
+                newCredentials.setPassword(UUID.randomUUID().toString());
+                newCredentials.setProvider(Provider.GOOGLE);
+                newCredentials.setEnabled(true);
+                newCredentials.setRuolo(Credentials.RUOLO_DEFAULT);
+                credentialsRepository.save(newCredentials);
+            } else {
+                String nomeCompleto = oAuth2User.getAttribute("name");
+                String[] parti = nomeCompleto.split(" ");
+                newUser.setNome(parti[0]);
+                newUser.setCognome(parti[1]);
+
+                newCredentials.setUser(newUser);
+                newCredentials.setEmail(oAuth2User.getAttribute("email"));
+                newCredentials.setUsername(oAuth2User.getUsername());
+                newCredentials.setPassword(UUID.randomUUID().toString());
+                newCredentials.setProvider(Provider.FACEBOOK);
+                newCredentials.setEnabled(true);
+                newCredentials.setRuolo(Credentials.RUOLO_DEFAULT);
+                credentialsRepository.save(newCredentials);
+            }
+
+        }
+
     }
 }

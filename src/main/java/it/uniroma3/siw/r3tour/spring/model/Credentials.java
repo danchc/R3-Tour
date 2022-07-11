@@ -1,5 +1,6 @@
 package it.uniroma3.siw.r3tour.spring.model;
 
+import it.uniroma3.siw.r3tour.oauth.Provider;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,6 +31,9 @@ public class Credentials {
     private String ruolo;
 
     private boolean isEnabled;
+
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 
     @OneToOne(cascade = {CascadeType.ALL})
     private User user;

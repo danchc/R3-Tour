@@ -129,8 +129,8 @@ public class AuthController {
     @GetMapping("/default")
     public String getDefault(Model model,
                              HttpSession session) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Credentials credentials = credentialsService.findCredentialsByUsername(userDetails.getUsername());
+        Credentials credentials = this.credentialsService.getCredentialsAuthenticated();
+        session.setAttribute("provider", credentials.getProvider().toString());
         if(credentials.isEnabled()){
             session.setAttribute("role", credentials.getRuolo());
             return "redirect:/";

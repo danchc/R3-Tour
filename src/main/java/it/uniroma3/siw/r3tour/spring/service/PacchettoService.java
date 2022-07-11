@@ -48,6 +48,7 @@ public class PacchettoService {
      * @param pacchetto
      * @return true o false
      */
+    @Transactional
     public boolean deletePacchetto(Pacchetto pacchetto) {
         try {
             this.pacchettoRepository.delete(pacchetto);

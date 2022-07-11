@@ -29,6 +29,6 @@ public class Destinazione {
     @ManyToOne
     private Continente continente;
 
-    @OneToMany(mappedBy = "destinazione", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "destinazione", cascade = {CascadeType.ALL})
     private List<Pacchetto> pacchetti;
 }

@@ -1,0 +1,178 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        lang="it"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+<head th:replace="fragments/base.html :: headerfiles(title='Modifica pacchetto')"></head>
+<body>
+
+<!-- container -->
+<div class="container-fluid min-vh-100">
+    <div class="row">
+
+        <!-- sidebar -->
+        <div th:replace="fragments/base.html :: dashboard-sidebar">
+        </div>
+        <!-- sidebar -->
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+                <h1 class="h2">Pacchetti</h1>
+            </div>
+
+            <div class="container-md mb-5">
+                <div class="text-center">
+                    <h1>Modifica un pacchetto</h1>
+                </div>
+
+                <form method="POST" th:action="@{/update/pacchetto}" th:object="${pacchetto}" enctype="multipart/form-data">
+
+                    <input type="hidden" th:value="*{id}" th:field="*{id}">
+
+                    <!-- riquadro errori -->
+                    <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                        <ul>
+                            <li th:each="err : ${#fields.errors()}" th:text="${err}" />
+                        </ul>
+                    </div>
+                    <!-- -->
+
+                    <!-- Nome input -->
+                    <div class="form-outline mt-3">
+                        <label class="form-label" for="nome">Nome</label>
+                        <input type="text" name="nome" id="nome" class="form-control"
+                               th:value=*{nome} th:field="*{nome}"/>
+                    </div>
+
+                    <!-- Descrizione input -->
+                    <div class="form-outline mt-3">
+                        <label class="form-label">Descrizione</label>
+                        <textarea th:value="*{descrizione}"
+                                th:field="*{descrizione}" class="form-control" style="height: 100px"></textarea>
+                    </div>
+
+                    <!-- Foto input -->
+                    <div class="form-outline mt-3 mb-3">
+                        <label for="image" class="form-label">Foto</label>
+                        <input class="form-control" type="file" th:name="image" name="image" accept="image/png, image/jpeg, image/jpg" required>
+                    </div>
+
+                    <!-- Prezzo e periodo input -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="prezzo">Prezzo</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">€</span>
+                                    <input type="number" name="prezzo" id="prezzo" class="form-control" th:value="*{prezzo}"
+                                            th:field="*{prezzo}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <!-- numero giorni e numero notti -->
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="prezzo">Giorni</label>
+                                        <input type="number" name="numeroGiorni" id="numeroGiorni" class="form-control"
+                                               th:value="*{numeroGiorni}" th:field="*{numeroGiorni}"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="periodo">Notti</label>
+                                        <input type="number" name="numeroNotti" id="numeroNotti" class="form-control"
+                                               th:value="*{numeroNotti}" th:field="*{numeroNotti}"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Destinazione select -->
+                    <div class="col-md-4 form-outline mb-4">
+                        <label class="form-label" for="continente">Destinazione</label>
+                        <select th:value="${pacchetto.destinazione.nome}" th:field="${pacchetto.destinazione}"
+                                class="form-select" aria-label="continente select">
+                            <option th:each="destinazione : ${destinazioni}"
+                                    th:value="${destinazione.id}"
+                                    th:text="${destinazione.nome.toUpperCase()}">nome</option>
+                        </select>
+                    </div>
+
+                    <!-- Referente select -->
+                    <div class="col-md-4 form-outline mb-4">
+                        <label class="form-label" for="continente">Referente</label>
+                        <select th:value="${pacchetto.referente.nome}"
+                                th:field="${pacchetto.referente}"
+                                class="form-select" aria-label="continente select">
+                            <option th:each="referente : ${referenti}"
+                                    th:value="${referente.id}"
+                                    th:text="|${referente.nome.toUpperCase()} ${referente.cognome.toUpperCase()}|">nome</option>
+                        </select>
+                    </div>
+
+                    <!-- gruppo bottoni -->
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary m-2">Modifica</button>
+                        <a th:href="@{/dashboard}">
+                            <button type="button" class="btn btn-primary m-2">Indietro</button>
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+
+            <h2>Pacchetti:</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Descrizione</th>
+                        <th>Prezzo</th>
+                        <th>Periodo</th>
+                        <th>Referente</th>
+                        <th>Destinazione</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="pacchetto: ${pacchetti}">
+                    <tr>
+                        <td th:text="${pacchetto.id}">id</td>
+                        <td th:text="${pacchetto.nome}">nome</td>
+                        <td th:text="${pacchetto.descrizione}">descrizione</td>
+                        <td th:text="${pacchetto.prezzo}">prezzo</td>
+                        <td><span th:text="${pacchetto.numeroGiorni + 'giorni'}">Giorni</span>-<span th:text="${pacchetto.numeroNotti + 'notti'}">Notti</span></td>
+                        <td th:text="|${pacchetto.referente.nome} ${pacchetto.referente.cognome}|">referente</td>
+                        <td th:text="${pacchetto.destinazione.nome}">destinazione</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+<!-- container -->
+
+
+<!-- Footer -->
+<footer class="bg-primary text-center text-white">
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+        © 2022 Copyright:
+        <a class="text-white" href="https://github.com/danchc">Daniel Checchia</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
