@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
@@ -76,7 +78,7 @@ public class AuthController {
     @PostMapping("/signup")
     public String register(@Valid @ModelAttribute("credentials") Credentials credentials,
                               @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
-                           String passwordconfirm, Model model) {
+                            Model model) {
 
 
         this.credentialsValidator.validate(credentials, bindingResult);
@@ -87,21 +89,23 @@ public class AuthController {
         }
 
         credentials.setUser(user);
+        credentials.setEnabled(false);
         this.credentialsService.inserisci(credentials);
 
-        /*
+
         //creo il token per la conferma dell'email
         ConfirmationToken confirmationToken = new ConfirmationToken(credentials);
         confirmationTokenRepository.save(confirmationToken);
+
         //invio l'email di conferma
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(credentials.getEmail());
         simpleMailMessage.setSubject("Conferma la registrazione!");
         simpleMailMessage.setFrom("r3.cate@gmail.com");
-        simpleMailMessage.setText("Per confermare clicca : " + "http://localhost:8090/confirm-account?token="
+        simpleMailMessage.setText("Per confermare clicca : " + "http://localhost:8081/confirm-account?token="
                 + confirmationToken.getConfirmationToken());
         emailSenderService.sendEmail(simpleMailMessage);
-*/
+
         return "success";
     }
 
@@ -113,19 +117,25 @@ public class AuthController {
      */
     @GetMapping("/confirm-account")
     @PostMapping("/confirm-account")
-    public String confirmEmail(Model model,
+    public String confirmEmail(RedirectAttributes redirectAttributes,
                                @RequestParam("token") String confirmationToken){
         ConfirmationToken token = this.confirmationTokenRepository.findByConfirmationToken(confirmationToken);
         if(token != null) {
             Credentials credentials = this.credentialsService.findByEmail(token.getCredentials().getEmail());
             credentials.setEnabled(true);
             this.credentialsService.inserisci(credentials);
-            return "success";
+            return "redirect:/login";
         } else {
             return "error";
         }
     }
 
+    /**
+     * Il metodo gestisce il reindirizzamento alla pagina di default dopo il login dell'utente.
+     * @param model
+     * @param session
+     * @return index.html
+     */
     @GetMapping("/default")
     public String getDefault(Model model,
                              HttpSession session) {

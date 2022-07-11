@@ -1,0 +1,93 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        lang="it"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/base.html :: headerfiles(title='Termini e condizioni')">
+        <link rel="icon" th:href="@{/images/favicon.png}">
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://kit.fontawesome.com/3bcc05e06e.js" crossorigin="anonymous"></script>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <!-- Custom CSS-->
+        <link rel="stylesheet" type="text/css" th:href="@{../static/css/style.css}" href="../static/css/style.css">
+        <!-- Icon CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+</head>
+<body>
+
+<!--header-->
+<header th:replace="fragments/base.html :: header-base">
+</header>
+<!-- end header -->
+
+<!--navbar-->
+<nav sec:authorize="isAnonymous()" th:replace="fragments/base.html :: navbar"></nav>
+<!--navbar-->
+
+<!--navbar-->
+<nav sec:authorize="isAuthenticated()" th:replace="fragments/base_default.html :: navbar"></nav>
+<!--navbar-->
+
+<!-- container termini e condizioni-->
+<div class="container p-5 col-lg-7 bg-light shadow-lg mt-5 mb-5">
+        <h1><span class="text-primary">R3 Tour</span> Terms and Conditions of Use</h1>
+
+        <h2>1. Terms</h2>
+
+        <p>By accessing this Website, accessible from <span class="text-primary link-primary">http://r3tour.herokuapp.com</span>, you are agreeing to be bound by these Website Terms and Conditions of Use and agree that you are responsible for the agreement with any applicable local laws. If you disagree with any of these terms, you are prohibited from accessing this site. The materials contained in this Website are protected by copyright and trade mark law.</p>
+
+        <h2>2. Use License</h2>
+
+        <p>Permission is granted to temporarily download one copy of the materials on R3 Tour's Website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+
+        <ul>
+        <li>modify or copy the materials;</li>
+        <li>use the materials for any commercial purpose or for any public display;</li>
+        <li>attempt to reverse engineer any software contained on R3 Tour's Website;</li>
+        <li>remove any copyright or other proprietary notations from the materials; or</li>
+        <li>transferring the materials to another person or "mirror" the materials on any other server.</li>
+        </ul>
+
+        <p>This will let R3 Tour to terminate upon violations of any of these restrictions. Upon termination, your viewing right will also be terminated and you should destroy any downloaded materials in your possession whether it is printed or electronic format. These Terms of Service has been created with the help of the <a href="https://www.termsofservicegenerator.net">Terms Of Service Generator</a>.</p>
+
+        <h2>3. Disclaimer</h2>
+
+        <p>All the materials on R3 Tour’s Website are provided "as is". R3 Tour makes no warranties, may it be expressed or implied, therefore negates all other warranties. Furthermore, R3 Tour does not make any representations concerning the accuracy or reliability of the use of the materials on its Website or otherwise relating to such materials or any sites linked to this Website.</p>
+
+        <h2>4. Limitations</h2>
+
+        <p>R3 Tour or its suppliers will not be hold accountable for any damages that will arise with the use or inability to use the materials on R3 Tour’s Website, even if R3 Tour or an authorize representative of this Website has been notified, orally or written, of the possibility of such damage. Some jurisdiction does not allow limitations on implied warranties or limitations of liability for incidental damages, these limitations may not apply to you.</p>
+
+        <h2>5. Revisions and Errata</h2>
+
+        <p>The materials appearing on R3 Tour’s Website may include technical, typographical, or photographic errors. R3 Tour will not promise that any of the materials in this Website are accurate, complete, or current. R3 Tour may change the materials contained on its Website at any time without notice. R3 Tour does not make any commitment to update the materials.</p>
+
+        <h2>6. Links</h2>
+
+        <p>R3 Tour has not reviewed all of the sites linked to its Website and is not responsible for the contents of any such linked site. The presence of any link does not imply endorsement by R3 Tour of the site. The use of any linked website is at the user’s own risk.</p>
+
+        <h2>7. Site Terms of Use Modifications</h2>
+
+        <p>R3 Tour may revise these Terms of Use for its Website at any time without prior notice. By using this Website, you are agreeing to be bound by the current version of these Terms and Conditions of Use.</p>
+
+        <h2>8. Your Privacy</h2>
+
+        <p>Please read our Privacy Policy.</p>
+
+        <h2>9. Governing Law</h2>
+
+        <p>Any claim related to R3 Tour's Website shall be governed by the laws of it without regards to its conflict of law provisions.</p>
+</div>
+<!-- container termini e condizioni-->
+
+
+        
+<!-- footer -->
+<footer th:replace="fragments/base.html :: footer"></footer>
+<!-- footer -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

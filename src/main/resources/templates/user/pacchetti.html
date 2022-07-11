@@ -74,23 +74,23 @@
 
 
         <!-- right -->
-        <div class="p-5 shadow-lg col-md-4 col-lg-8 bg-white rounded m-4 justify-content-center">
+        <div class="p-5 shadow-lg col-md-4 col-lg-8 bg-white rounded mb-4 justify-content-center">
 
             <h1>I tuoi pacchetti:</h1>
 
             <!-- container se abbiamo almeno un pacchetto-->
-            <div class="container" th:unless="${user.pacchetti?.isEmpty()}">
+            <div class="container d-flex flex-column justify-content-center" th:unless="${user.pacchetti?.isEmpty()}">
                 <div th:each="pacchetto : ${user.pacchetti}" class="list-group mt-5">
                     <a th:href="@{'/pacchetto/' + ${pacchetto.id}}" class="list-group-item list-group-item-action" th:text="${pacchetto.nome}">Titolo pacchetto</a>
                 </div>
             </div>
 
             <!-- container se pacchetti è vuoto-->
-            <div th:if="${user.pacchetti?.isEmpty()}" class="container">
+            <div th:if="${user.pacchetti?.isEmpty()}" class="container d-flex justify-content-center">
                 <div class="container p-5 text-center">
                    <h2>Sembra non esserci alcun pacchetto...</h2> 
                    <div class="container">
-                        <img th:src="@{../images/account/lookingfor.svg}" src="../../static/images/account/lookingfor.svg" width="300">
+                        <img th:src="@{../images/account/lookingfor.svg}" width="300">
                    </div>
                 </div>
             </div>

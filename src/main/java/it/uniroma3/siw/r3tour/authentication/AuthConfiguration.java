@@ -60,8 +60,8 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .requestCache().disable()
                 /*definiamo le pagine accessibili da tutti e dall'admin*/
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/", "/login", "/signup",
-                        "/css/**", "/images/**", "/destinazioni", "/chisiamo", "/pacchetti/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/", "/terms" , "/login", "/signup",
+                        "/css/**", "/images/**", "/destinazioni", "/chisiamo", "/pacchetti/**", "/pacchetto/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login", "/signup").permitAll()
                 .antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(RUOLO_ADMIN)
                 .antMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(RUOLO_ADMIN)

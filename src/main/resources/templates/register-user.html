@@ -78,7 +78,7 @@
             <!-- Username input -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="username">Username</label>
-                <input type="text" id="username" class="form-control" th:field="*{username}"/>
+                <input type="text" id="username" class="form-control" th:field="*{username}" placeholder="Inserisci username"/>
                 <ul>
                     <li th:each="err : ${#fields.errors('username')}" th:text="${err}" class="error" />
                 </ul>
@@ -105,7 +105,7 @@
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label" for="telefono">Telefono</label>
-                        <input type="text" id="telefono" class="form-control" th:field="${user.telefono}"/>
+                        <input type="text" id="telefono" class="form-control" th:field="${user.telefono}" placeholder="Inserisci il numero di telefono"/>
                     </div>
                 </div>
                 <div class="col">
@@ -126,7 +126,7 @@
             <div class="form-check d-flex justify-content-center mb-4">
                 <input class="form-check-input me-2" type="checkbox" value="" id="terms-check" />
                 <label class="form-check-label" for="terms-check">
-                Dichiaro di aver letto ed accettato i nostri <a href="">termini e servizi</a>
+                Dichiaro di aver letto ed accettato i nostri <a th:href="@{/terms}">termini e servizi</a>
                 </label>
             </div>
         
