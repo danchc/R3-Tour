@@ -1,0 +1,21 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        lang="it"
+        xmlns="http://www.w3.org/2000/svg">
+<head th:replace="fragments/base.html :: headerfiles(title='Errore')">
+</head>
+<body class="bg-light">
+
+    <div class="container ">
+        <div class="container text-center mt-5 justify-content-center align-items-center">
+            <img th:src="@{/images/error/error.svg}" width="400"> 
+        </div>
+        <div class="container text-center mt-4">
+            <h1 class="display-1">Errore</h1>
+            <a th:href="@{/}" class="btn btn-primary btn-lg mt-3">Torna alla home</a>
+        </div>
+        
+    </div>
+</body>
+</html>

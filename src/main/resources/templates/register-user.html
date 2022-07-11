@@ -41,7 +41,7 @@
 
     <!-- register form -->
     <div class="p-5 col-md-7 col-lg-6">
-        <form method="POST" th:action="@{/signup}" th:object="${credentials}">
+        <form method="POST" th:action="@{/signup}" th:object="${credentials}" class="needs-validation" novalidate>
 
             <!-- riquadro errori -->
             <div class="container" th:if="${#fields.hasAnyErrors()}">
@@ -128,12 +128,17 @@
                 <label class="form-check-label" for="terms-check">
                 Dichiaro di aver letto ed accettato i nostri <a th:href="@{/terms}">termini e servizi</a>
                 </label>
+                <div class="invalid-feedback">
+                    Devi accettare i termini prima di registrarti.
+                </div>
             </div>
         
             <!-- Submit button -->
-            <div class="d-flex">
+            <div class="container d-flex text-center justify-content-center">
                 <button type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
             </div>
+
+
         </form>
     </div>
     <!-- register form-->
@@ -164,6 +169,31 @@
             passwordInput.type = "password";
         }
     }
+
 </script>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+
+
 </body>
 </html>

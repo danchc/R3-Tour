@@ -111,7 +111,6 @@ public class AuthController {
 
     /**
      * Questo metodo gestisce il GET e il POST per quanto riguarda la conferma dell'account appena creato.
-     * @param model
      * @param confirmationToken il token per la conferma
      * @return la pagina di successo, pagina di errore se ci sono errori
      */
@@ -123,7 +122,8 @@ public class AuthController {
         if(token != null) {
             Credentials credentials = this.credentialsService.findByEmail(token.getCredentials().getEmail());
             credentials.setEnabled(true);
-            this.credentialsService.inserisci(credentials);
+            this.credentialsService.update(credentials);
+            redirectAttributes.addFlashAttribute("successmsg", "Il tuo account ora è attivo.");
             return "redirect:/login";
         } else {
             return "error";
