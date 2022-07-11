@@ -26,6 +26,8 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.List;
 
 
 @Controller
@@ -76,13 +78,12 @@ public class AuthController {
      * @return register-user se ci sono errori, sennò success
      */
     @PostMapping("/signup")
-    public String register(@Valid @ModelAttribute("credentials") Credentials credentials,
-                              @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
-                            Model model) {
+    public String register(@Valid @ModelAttribute("user") User user,
+                           @Valid @ModelAttribute("credentials") Credentials credentials,
+                           BindingResult bindingResult) {
 
-
-        this.credentialsValidator.validate(credentials, bindingResult);
         this.userValidator.validate(user, bindingResult);
+        this.credentialsValidator.validate(credentials, bindingResult);
 
         if(bindingResult.hasErrors()){
             return "register-user";

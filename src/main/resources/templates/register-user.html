@@ -4,6 +4,17 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="fragments/base.html :: headerfiles(title='Registrazione')"></head>
 <body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    </symbol>
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+</svg>
 
 <!--header-->
 <header th:replace="fragments/base.html :: header-base">
@@ -41,29 +52,32 @@
 
     <!-- register form -->
     <div class="p-5 col-md-7 col-lg-6">
-        <form method="POST" th:action="@{/signup}" th:object="${credentials}" class="needs-validation" novalidate>
+        <form method="POST" th:action="@{/signup}" th:object="${credentials}">
 
-            <!-- riquadro errori -->
-            <div class="container" th:if="${#fields.hasAnyErrors()}">
-                <div class="error alert-danger">
-                    <ul>
-                        <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+
+            <!-- messaggio errore -->
+            <div class="container d-flex justify-content-center align-items-center">
+                <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                    <ul class="list-unstyled">
+                        <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
                     </ul>
                 </div>
             </div>
-            <!-- -->
+            <!-- messaggio errore -->
+
 
             <div class="row mb-4">
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label" for="nome">Nome</label>
-                        <input type="text" id="nome" class="form-control" th:field="${user.nome}" placeholder="Inserisci il nome"/>
+                        <input type="text" name="nome" id="nome" class="form-control" th:field="${user.nome}" placeholder="Inserisci il nome"/>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label" for="cognome">Cognome</label>
-                        <input type="text" id="cognome" class="form-control" th:field="${user.cognome}"
+                        <input type="text" name="cognome" id="cognome" class="form-control" th:field="${user.cognome}"
                         placeholder="Inserisci il cognome"/>
                     </div>
                 </div>
@@ -72,13 +86,13 @@
             <!-- Email input -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="email">Indirizzo e-mail</label>
-                <input type="email" id="email" class="form-control" th:field="*{email}" placeholder="Inserisci l'e-mail"/>
+                <input type="email" name="email" id="email" class="form-control" th:field="*{email}" placeholder="Inserisci l'e-mail"/>
             </div>
 
             <!-- Username input -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="username">Username</label>
-                <input type="text" id="username" class="form-control" th:field="*{username}" placeholder="Inserisci username"/>
+                <input type="text" name="username" id="username" class="form-control" th:field="*{username}" placeholder="Inserisci username"/>
                 <ul>
                     <li th:each="err : ${#fields.errors('username')}" th:text="${err}" class="error" />
                 </ul>
@@ -91,7 +105,7 @@
                         <label for="password">Password</label>
                         <div class="input-group">
                             <input type="password" class="form-control" name="password" id="password" placeholder="Inserisci password"
-                                   th:field="${credentials.password}">
+                                   th:field="*{password}">
                             <span class="input-group-text">
                                 <i class="bi bi-eye-slash" onClick="show(this)"></i>
                             </span>
@@ -105,13 +119,13 @@
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label" for="telefono">Telefono</label>
-                        <input type="text" id="telefono" class="form-control" th:field="${user.telefono}" placeholder="Inserisci il numero di telefono"/>
+                        <input type="text" name="telefono" id="telefono" class="form-control" th:field="${user.telefono}" placeholder="Inserisci il numero di telefono"/>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label" for="dataNascita">Data di nascita</label>
-                        <input type="date" id="dataNascita" class="form-control" th:field="${user.dataNascita}" />
+                        <input type="date" name="dataNascita" id="dataNascita" class="form-control" th:field="${user.dataNascita}" />
                     </div>
                 </div>
             </div>
@@ -124,20 +138,20 @@
             </label>
             </div>
             <div class="form-check d-flex justify-content-center mb-4">
-                <input class="form-check-input me-2" type="checkbox" value="" id="terms-check" />
+                <input class="form-check-input me-2" type="checkbox" value="" id="terms-check" required />
                 <label class="form-check-label" for="terms-check">
                 Dichiaro di aver letto ed accettato i nostri <a th:href="@{/terms}">termini e servizi</a>
                 </label>
+                <!--
                 <div class="invalid-feedback">
                     Devi accettare i termini prima di registrarti.
-                </div>
+                </div> -->
             </div>
         
             <!-- Submit button -->
             <div class="container d-flex text-center justify-content-center">
-                <button type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
+                <button type="submit" class="btn btn-primary btn-block mb-4">Registrati</button>
             </div>
-
 
         </form>
     </div>
