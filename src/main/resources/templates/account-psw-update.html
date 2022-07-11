@@ -52,9 +52,9 @@
 
 
         <!-- right -->
-        <div class=" shadow-lg col-md-4 col-lg-8 bg-white rounded mb-5 justify-content-center">
+        <div class=" shadow-lg col-md-8 col-lg-8 bg-white rounded mb-5 justify-content-center">
             <!-- register form -->
-            <div class="p-5 col-md-7 col-lg-12">
+            <div class="p-5 col-md-12 col-lg-12">
                 <form method="POST" th:action="@{/update/password/utente}" th:object="${credentials}">
 
                     <input type="hidden" th:value="*{id}" th:field="*{id}">

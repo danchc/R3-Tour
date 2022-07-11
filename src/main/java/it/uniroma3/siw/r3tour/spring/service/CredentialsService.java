@@ -44,6 +44,8 @@ public class CredentialsService {
      */
     @Transactional
     public Credentials update(Credentials credentials){
+        credentials.setProvider(Provider.LOCAL);
+        credentials.setRuolo(Credentials.RUOLO_DEFAULT);
         return this.credentialsRepository.save(credentials);
     }
 
@@ -136,7 +138,7 @@ public class CredentialsService {
                 newCredentials.setProvider(Provider.GOOGLE);
                 newCredentials.setEnabled(true);
                 newCredentials.setRuolo(Credentials.RUOLO_DEFAULT);
-                credentialsRepository.save(newCredentials);
+                this.update(newCredentials);
             } else {
                 String nomeCompleto = oAuth2User.getAttribute("name");
                 String[] parti = nomeCompleto.split(" ");
@@ -150,7 +152,7 @@ public class CredentialsService {
                 newCredentials.setProvider(Provider.FACEBOOK);
                 newCredentials.setEnabled(true);
                 newCredentials.setRuolo(Credentials.RUOLO_DEFAULT);
-                credentialsRepository.save(newCredentials);
+                this.update(newCredentials);
             }
 
         }

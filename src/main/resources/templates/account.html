@@ -147,7 +147,8 @@
                         <div class="form-outline">
                           <h5><strong>Telefono:</strong></h5>
                           <div class="border-bottom border-primary p-2">
-                            <span th:text="${user.telefono}">telefono</span>
+                              <span th:unless="${user?.telefono == null}" th:text="${user.telefono}">telefono</span>
+                              <span th:if="${user?.telefono == null}" >Non è presente nel sistema.</span>
                           </div>
                         </div>
                     </div>
@@ -155,7 +156,8 @@
                         <div class="form-outline">
                           <h5><strong>Data di nascita:</strong></h5>
                           <div class="border-bottom border-primary p-2">
-                            <span th:text="${user.dataNascita}">data nascita</span>
+                              <span th:text="${user.dataNascita}">data nascita</span>
+                              <span th:if="${user?.dataNascita == null}" >Non è presente nel sistema.</span>
                           </div>
                         </div>
                     </div>
