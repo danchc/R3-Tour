@@ -81,7 +81,7 @@
 <!-- contenuto principale -->
 <div class="shadow-lg p-5 mb-4 bg-light rounded-3 m-5">
     <div class="container-fluid">
-        <img th:src="@{/images/destinazioni/rome.jpg}" class="w-100 rounded-3">
+        <img th:src="@{${pacchetto.photo}}" class="w-100 rounded-3">
 
         <div class="container mt-4">
             <h1 class="display-5 fw-bold">Benvenuto a <span class="text-primary" th:text="${pacchetto.destinazione.nome}">Roma</span> !</h1>

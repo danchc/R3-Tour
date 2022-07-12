@@ -83,8 +83,7 @@
                 <div th:each="pacchetto : ${user.pacchetti}" class="list-group mt-5">
                     <ul class="list-group">
                         <a th:href="@{'/pacchetto/' + ${pacchetto.id}}" class="list-group-item list-group-item-action" th:text="${pacchetto.nome}">
-                            Titolo pacchetto 
-                            <img th:src="@{/images/account/check-circle.svg}">
+                            Titolo pacchetto
                         </a>
                     </ul>
                 </div>

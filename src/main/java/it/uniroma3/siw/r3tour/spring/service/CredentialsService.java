@@ -44,6 +44,7 @@ public class CredentialsService {
      */
     @Transactional
     public Credentials update(Credentials credentials){
+        credentials.setEnabled(true);
         credentials.setProvider(Provider.LOCAL);
         credentials.setRuolo(Credentials.RUOLO_DEFAULT);
         return this.credentialsRepository.save(credentials);
@@ -125,6 +126,7 @@ public class CredentialsService {
      */
     public Credentials updatePassword(Credentials credentials, String newpsw){
         credentials.setPassword(this.passwordEncoder.encode(newpsw));
+        credentials.setEnabled(true);
         credentials.setProvider(Provider.LOCAL);
         credentials.setRuolo(Credentials.RUOLO_DEFAULT);
         return this.credentialsRepository.save(credentials);

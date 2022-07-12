@@ -4,22 +4,18 @@ import it.uniroma3.siw.r3tour.spring.controller.validator.PacchettoValidator;
 import it.uniroma3.siw.r3tour.spring.model.Credentials;
 import it.uniroma3.siw.r3tour.spring.model.Pacchetto;
 import it.uniroma3.siw.r3tour.spring.model.Referente;
-import it.uniroma3.siw.r3tour.spring.service.CredentialsService;
-import it.uniroma3.siw.r3tour.spring.service.DestinazioneService;
-import it.uniroma3.siw.r3tour.spring.service.PacchettoService;
-import it.uniroma3.siw.r3tour.spring.service.ReferenteService;
+import it.uniroma3.siw.r3tour.spring.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -39,6 +35,9 @@ public class PacchettoController {
 
     @Autowired
     protected PacchettoValidator pacchettoValidator;
+
+    @Autowired
+    protected AWSS3Service awss3Service;
 
     /**
      * Questo metodo ci reindirizza alla pagina dei pacchetti con la lista dei
@@ -79,12 +78,14 @@ public class PacchettoController {
     @PostMapping("/new/pacchetto")
     public String addNewPacchetto(@Valid @ModelAttribute("pacchetto") Pacchetto pacchetto,
                                   BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes, Model model){
+                                  RedirectAttributes redirectAttributes,
+                                  Model model, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         /* controllo se ci sono errori */
         this.pacchettoValidator.validate(pacchetto, bindingResult);
 
         if(!bindingResult.hasErrors()){
+            pacchetto.setPhoto(awss3Service.uploadFile(multipartFile));
             this.pacchettoService.inserisci(pacchetto);
             redirectAttributes.addFlashAttribute("successmsg",
                     "Il pacchetto è stato aggiunto correttamente.");
@@ -145,11 +146,13 @@ public class PacchettoController {
     @PostMapping("/update/pacchetto")
     public String updatePacchetto(@Valid @ModelAttribute("pacchetto") Pacchetto pacchetto,
                                   BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes, Model model){
+                                  RedirectAttributes redirectAttributes, Model model,
+                                  @RequestParam("image") MultipartFile multipartFile) throws IOException{
         /* controllo se ci sono errori */
         this.pacchettoValidator.validate(pacchetto, bindingResult);
 
         if(!bindingResult.hasErrors()){
+            pacchetto.setPhoto(awss3Service.uploadFile(multipartFile));
             this.pacchettoService.inserisci(pacchetto);
             redirectAttributes.addFlashAttribute("successmsg",
                     "Il pacchetto " + pacchetto.getNome()

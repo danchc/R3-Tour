@@ -34,7 +34,7 @@
     <!-- container card -->
     <div class="card-deck row p-5 m-1 justify-content-center align-items-center">
       <div th:each="pacchetto : ${pacchetti}" class="card p-0 m-2" style="width: 21rem;">
-        <img class="card-img-top" th:src="@{/images/destinazioni/rome.jpg}" style="height: 175px" alt="trip-image">
+        <img class="card-img-top"  th:src="@{${pacchetto.photo}}" style="height: 175px" alt="trip-image">
         <div class="card-body">
           <strong><h5 class="card-title" th:text="${pacchetto.nome}">nome pacchetto</h5></strong>
         </div>
