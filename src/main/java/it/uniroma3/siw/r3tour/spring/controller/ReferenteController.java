@@ -1,5 +1,6 @@
 package it.uniroma3.siw.r3tour.spring.controller;
 
+import it.uniroma3.siw.r3tour.spring.controller.validator.ReferenteValidator;
 import it.uniroma3.siw.r3tour.spring.model.Referente;
 import it.uniroma3.siw.r3tour.spring.service.DestinazioneService;
 import it.uniroma3.siw.r3tour.spring.service.ReferenteService;
@@ -23,6 +24,9 @@ public class ReferenteController {
 
     @Autowired
     protected DestinazioneService destinazioneService;
+
+    @Autowired
+    protected ReferenteValidator referenteValidator;
 
     /**
      *
@@ -48,6 +52,10 @@ public class ReferenteController {
     public String addNewReferente(@Valid @ModelAttribute("referente") Referente referente,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes, Model model){
+
+        /* controllo se ci sono errori */
+        this.referenteValidator.validate(referente, bindingResult);
+
         if(!bindingResult.hasErrors()){
             this.referenteService.inserisci(referente);
             redirectAttributes.addFlashAttribute("successmsg",
@@ -92,17 +100,22 @@ public class ReferenteController {
     }
 
     /**
-     *
+     * Il metodo viene utilizzato per aggiornare i dati di un certo referente già esistente
+     * all'interno del database.
      * @param referente
      * @param bindingResult
      * @param redirectAttributes
      * @param model
-     * @return
+     * @return dashboard se non ci sono errori, admin/cp-referenti-update.html altrimenti
      */
     @PostMapping("/update/referente")
     public String updateReferente(@Valid @ModelAttribute("referente") Referente referente,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes, Model model){
+
+        /* controllo se ci sono errori */
+        this.referenteValidator.validate(referente, bindingResult);
+
         if(!bindingResult.hasErrors()){
             this.referenteService.inserisci(referente);
             redirectAttributes.addFlashAttribute("successmsg",

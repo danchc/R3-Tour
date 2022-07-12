@@ -59,6 +59,12 @@ public class PacchettoService {
     }
 
 
+    /**
+     * Il metodo viene utilizzato per ottenere una lista di pacchetti in base al nome della destinazione passato
+     * come paramentro.
+     * @param nomeDestinazione
+     * @return la lista dei pacchetti che hanno 'nomeDestinazione' come destinazione
+     */
     public List<Pacchetto> findPacchettiByDestinazione(String nomeDestinazione){
         return this.pacchettoRepository.findAllByDestinazione_Nome(nomeDestinazione);
     }

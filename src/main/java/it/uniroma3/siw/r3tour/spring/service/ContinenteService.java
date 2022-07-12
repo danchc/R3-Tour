@@ -13,6 +13,10 @@ public class ContinenteService {
     @Autowired
     protected ContinenteRepository continenteRepository;
 
+    /**
+     * Il metodo viene utilizzato per ottenere una lista di tutti i continenti presenti nel database.
+     * @return la lista
+     */
     public List<Continente> findAllContinenti() {
         return (List<Continente>) this.continenteRepository.findAll();
     }

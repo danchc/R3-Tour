@@ -13,6 +13,11 @@ public class ConfirmationTokenService {
     @Autowired
     protected ConfirmationTokenRepository confirmationTokenRepository;
 
+    /**
+     * Il metodo salva all'interno del database un determinato token creato in maniera randomica.
+     * @param confirmationToken
+     * @return il token creato
+     */
     @Transactional
     public ConfirmationToken save(ConfirmationToken confirmationToken){
         return this.confirmationTokenRepository.save(confirmationToken);

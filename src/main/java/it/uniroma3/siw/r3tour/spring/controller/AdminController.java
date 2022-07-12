@@ -24,6 +24,11 @@ public class AdminController {
     @Autowired
     protected PacchettoService pacchettoService;
 
+    /**
+     * Il metodo viene utilizzato per il reindirizzamento alla dashboard dell'amministratore.
+     * @param model
+     * @return controlpanel.html
+     */
     @GetMapping("/dashboard")
     public String getDashboardPage(Model model) {
         model.addAttribute("utentiRegistrati", this.credentialsService.findAllUtentiRegistrati());

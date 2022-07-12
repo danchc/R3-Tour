@@ -1,5 +1,6 @@
 package it.uniroma3.siw.r3tour.spring.controller;
 
+import it.uniroma3.siw.r3tour.spring.controller.validator.DestinazioneValidator;
 import it.uniroma3.siw.r3tour.spring.model.Destinazione;
 import it.uniroma3.siw.r3tour.spring.service.ContinenteService;
 import it.uniroma3.siw.r3tour.spring.service.DestinazioneService;
@@ -28,10 +29,13 @@ public class DestinazioneController {
     @Autowired
     protected ReferenteService referenteService;
 
+    @Autowired
+    protected DestinazioneValidator destinazioneValidator;
+
     /**
-     *
+     * Il metodo viene utilizzato per il reindirizzamento alla pagina di tutte le destinazioni.
      * @param model
-     * @return
+     * @return destinazioni.html
      */
     @GetMapping("/destinazioni")
     public String getPageDestinazioni(Model model) {
@@ -41,9 +45,9 @@ public class DestinazioneController {
     }
 
     /**
-     *
+     * Il metodo viene utilizzato per il reindirizzamento alla pagina del form per l'aggiunta di una nuova destinazione.
      * @param model
-     * @return
+     * @return admin/cp-destinazioni.html
      */
     @GetMapping("/add/new/destinazione")
     public String getFormDestinazione(Model model){
@@ -55,16 +59,22 @@ public class DestinazioneController {
     }
 
     /**
-     *
+     * Il metodo viene utilizzato per inviare al server i dati della nuova destinazione da aggiungere all'interno
+     * del database.
      * @param redirectAttributes
      * @param destinazione
      * @param bindingResult
-     * @return
+     * @return dashboard se non ci sono errori, admin/cp-destinazioni.html altrimenti
      */
-    @PostMapping("new/destinazione")
+    @PostMapping("/new/destinazione")
     public String addNewDestinazione(RedirectAttributes redirectAttributes,
                                      @Valid @ModelAttribute("destinazione") Destinazione destinazione,
-                                     BindingResult bindingResult, Model model){
+                                     BindingResult bindingResult,
+                                     Model model){
+
+        /* controllo se ci sono errori */
+        this.destinazioneValidator.validate(destinazione, bindingResult);
+
         if(!bindingResult.hasErrors()){
             this.destinazioneService.inserisci(destinazione);
             redirectAttributes.addFlashAttribute("successmsg", "La destinazione " +
@@ -75,15 +85,15 @@ public class DestinazioneController {
         model.addAttribute("continenti", this.continenteService.findAllContinenti());
         model.addAttribute("referenti", this.referenteService.findAllReferenti());
         model.addAttribute("destinazioni", this.destinazioneService.findAllDestinazioni());
-        return "cp-destinazioni";
+        return "admin/cp-destinazioni";
     }
 
 
     /**
-     *
+     * Il metodo viene utilizzato per eliminare una certa destinazione dal database.
      * @param id destinazione da eliminare
      * @param redirectAttributes
-     * @return
+     * @return dashboard
      */
     @GetMapping("/delete/destinazione/{id}")
     public String deleteDestinazione(@PathVariable("id") Long id,
@@ -124,6 +134,9 @@ public class DestinazioneController {
     public String updateDestinazione(@Valid @ModelAttribute("destinazione") Destinazione destinazione,
                                      BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes, Model model){
+
+        /* controllo se ci sono errori */
+        this.destinazioneValidator.validate(destinazione, bindingResult);
 
         //se non ci sono errori
         if(!bindingResult.hasErrors()){

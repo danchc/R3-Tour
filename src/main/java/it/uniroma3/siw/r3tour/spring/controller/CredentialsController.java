@@ -11,10 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -90,23 +87,35 @@ public class CredentialsController {
         return "account-psw-update";
     }
 
+
+    /**
+     * Il metodo viene utilizzato per inviare al server la nuova password e modificare l'utente nel database
+     * aggiornando la sua password.
+     * @param user
+     * @param credentials
+     * @param bindingResult
+     * @param confirmpsw
+     * @param newpsw
+     * @param redirectAttributes
+     * @return account-psw-update.html se ci sono errori, account altrimenti
+     */
     @PostMapping("/update/password/utente")
-    public String updatePasswordUtente(@ModelAttribute("credentials") Credentials credentials,
-                                       @ModelAttribute("user") User user,
-                                       BindingResult bindingResult, String confirmpsw, String currentpsw,
+    public String updatePasswordUtente(@ModelAttribute("user") User user,
+                                       @ModelAttribute("credentials") Credentials credentials,
+                                       BindingResult bindingResult,
+                                       @RequestParam("confirmpsw") String confirmpsw,
+                                       @RequestParam("newpsw") String newpsw,
                                        RedirectAttributes redirectAttributes) {
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-
-        if(passwordEncoder.matches(currentpsw, credentials.getPassword())) {
-           System.out.println("same");
-        } else {
+        System.out.println(confirmpsw);
+        System.out.println(newpsw);
+        if(!confirmpsw.equals(newpsw)){
             bindingResult.reject("credentials.psw.not.matches");
             return "account-psw-update";
-
         }
 
+        credentials.setUser(user);
+        this.credentialsService.updatePassword(credentials, newpsw);
         redirectAttributes.addFlashAttribute("successmsg", "La password è stata modificata con successo!");
         return "redirect:/account";
     }

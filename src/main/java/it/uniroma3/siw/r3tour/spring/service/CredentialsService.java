@@ -118,6 +118,19 @@ public class CredentialsService {
     }
 
     /**
+     * Il metodo viene utilizzato per salvare la nuova password.
+     * @param credentials
+     * @param newpsw
+     * @return le credenziali aggiornate
+     */
+    public Credentials updatePassword(Credentials credentials, String newpsw){
+        credentials.setPassword(this.passwordEncoder.encode(newpsw));
+        credentials.setProvider(Provider.LOCAL);
+        credentials.setRuolo(Credentials.RUOLO_DEFAULT);
+        return this.credentialsRepository.save(credentials);
+    }
+
+    /**
      * Questo metodo gestisce le operazioni dopo l'accesso di un utente attraverso
      * l'utilizzo di OAuth2.
      * @param username

@@ -1,5 +1,6 @@
 package it.uniroma3.siw.r3tour.spring.controller;
 
+import it.uniroma3.siw.r3tour.spring.controller.validator.PacchettoValidator;
 import it.uniroma3.siw.r3tour.spring.model.Credentials;
 import it.uniroma3.siw.r3tour.spring.model.Pacchetto;
 import it.uniroma3.siw.r3tour.spring.model.Referente;
@@ -36,6 +37,9 @@ public class PacchettoController {
     @Autowired
     protected CredentialsService credentialsService;
 
+    @Autowired
+    protected PacchettoValidator pacchettoValidator;
+
     /**
      * Questo metodo ci reindirizza alla pagina dei pacchetti con la lista dei
      * pacchetti salvati nel database.
@@ -51,9 +55,9 @@ public class PacchettoController {
     }
 
     /**
-     *
+     * Il metodo gestisce il reindirizzamento alla pagina per l'aggiunta di un nuovo pacchetto.
      * @param model
-     * @return
+     * @return cp-pacchetti.html
      */
     @GetMapping("/add/new/pacchetto")
     public String getFormPacchetto(Model model) {
@@ -65,17 +69,21 @@ public class PacchettoController {
     }
 
     /**
-     *
+     * Il metodo viene utilizzato per aggiungere un nuovo pacchetto nel database.
      * @param pacchetto
      * @param bindingResult
      * @param redirectAttributes
      * @param model
-     * @return
+     * @return dashboard se non ci sono errori, cp-pacchetti.html altrimenti
      */
     @PostMapping("/new/pacchetto")
     public String addNewPacchetto(@Valid @ModelAttribute("pacchetto") Pacchetto pacchetto,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes, Model model){
+
+        /* controllo se ci sono errori */
+        this.pacchettoValidator.validate(pacchetto, bindingResult);
+
         if(!bindingResult.hasErrors()){
             this.pacchettoService.inserisci(pacchetto);
             redirectAttributes.addFlashAttribute("successmsg",
@@ -90,15 +98,20 @@ public class PacchettoController {
     }
 
     /**
-     *
+     * Il metodo viene utilizzato per eliminare un determinato pacchetto dal database.
      * @param id del pacchetto da eliminare
      * @param redirectAttributes
-     * @return
+     * @return dashboard
      */
     @GetMapping("/delete/pacchetto/{id}")
     public String deletePacchetto(@PathVariable("id") Long id,
                                   RedirectAttributes redirectAttributes){
         Pacchetto pacchetto = this.pacchettoService.findPacchettoById(id);
+        for(Credentials credentials : this.credentialsService.findAllUtentiRegistrati()){
+            if(credentials.getUser().getPacchetti().contains(pacchetto)){
+                credentials.getUser().getPacchetti().remove(pacchetto);
+            }
+        }
         this.pacchettoService.deletePacchetto(pacchetto);
         redirectAttributes.addFlashAttribute("successmsg",
                 "Il pacchetto " + pacchetto.getNome() + " è stato eliminato con successo!");
@@ -122,7 +135,7 @@ public class PacchettoController {
     }
 
     /**
-     *
+     * Il metodo viene utilizzato per modificare le informazioni che riguardano un pacchetto esistente.
      * @param pacchetto
      * @param bindingResult
      * @param redirectAttributes
@@ -133,6 +146,9 @@ public class PacchettoController {
     public String updatePacchetto(@Valid @ModelAttribute("pacchetto") Pacchetto pacchetto,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes, Model model){
+        /* controllo se ci sono errori */
+        this.pacchettoValidator.validate(pacchetto, bindingResult);
+
         if(!bindingResult.hasErrors()){
             this.pacchettoService.inserisci(pacchetto);
             redirectAttributes.addFlashAttribute("successmsg",

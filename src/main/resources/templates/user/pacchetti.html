@@ -81,7 +81,12 @@
             <!-- container se abbiamo almeno un pacchetto-->
             <div class="container d-flex flex-column justify-content-center" th:unless="${user.pacchetti?.isEmpty()}">
                 <div th:each="pacchetto : ${user.pacchetti}" class="list-group mt-5">
-                    <a th:href="@{'/pacchetto/' + ${pacchetto.id}}" class="list-group-item list-group-item-action" th:text="${pacchetto.nome}">Titolo pacchetto</a>
+                    <ul class="list-group">
+                        <a th:href="@{'/pacchetto/' + ${pacchetto.id}}" class="list-group-item list-group-item-action" th:text="${pacchetto.nome}">
+                            Titolo pacchetto 
+                            <img th:src="@{/images/account/check-circle.svg}">
+                        </a>
+                    </ul>
                 </div>
             </div>
 
