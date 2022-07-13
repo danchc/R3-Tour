@@ -15,11 +15,11 @@ Progetto Personale Sistemi Informativi Sul Web A.A. 2021/2022.
 - Spring Security
 - PostgreSQL
 - OAuth 2 (Google, Facebook)
-- AWS (SES, S3)
+- AWS (SES**, S3)
 - JPA
 
 *ancora da implementare
-
+**disabilitato temporaneamente
 
 ## Deploy su Heroku
 
@@ -55,12 +55,12 @@ da username e password. Una volta effettuato il login, può recarsi alla _dashbo
 
 L'**utente generico** può avere due stati: autenticato e non autenticato. Nel caso in caso non fosse autenticato l'utente è in grado di visualizzare liberamente le informazioni presenti all'interno del Sistema, nello specifico può
 verificare le informazioni che riguardano un determinato pacchetto e il suo relativo referente.
-L'utente può essere autenticato una volta che si è registrato inserendo i propri dati e dopo aver confermato la registrazione per e-mail.
+L'utente può essere autenticato una volta che si è registrato inserendo i propri dati ~~e dopo aver confermato la registrazione per e-mail.~~
 L'utente autenticato è in grado di prenotare il pacchetto desiderato.
 
 In generale, un utente effettua le seguenti operazioni:
 - Registrazione attraverso form specifico inserendo i dati personali
-- Conferma registrazione attraverso e-mail
+- ~~Conferma registrazione attraverso e-mail~~
 - Autenticazione attraverso form specifico inserendo username e password
 - Visualizzazione e modifica dei propri dati personali
 - Visualizzazione e prenotazione del pacchetto
