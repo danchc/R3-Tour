@@ -90,10 +90,11 @@ public class AuthController {
         }
 
         credentials.setUser(user);
-        credentials.setEnabled(false);
+        credentials.setEnabled(true);
         this.credentialsService.inserisci(credentials);
 
 
+        /*
         //creo il token per la conferma dell'email
         ConfirmationToken confirmationToken = new ConfirmationToken(credentials);
         confirmationTokenRepository.save(confirmationToken);
@@ -106,7 +107,7 @@ public class AuthController {
         simpleMailMessage.setText("Per confermare clicca : " + "http://localhost:8081/confirm-account?token="
                 + confirmationToken.getConfirmationToken());
         emailSenderService.sendEmail(simpleMailMessage);
-
+*/
         return "success";
     }
 
@@ -133,12 +134,12 @@ public class AuthController {
 
     /**
      * Il metodo gestisce il reindirizzamento alla pagina di default dopo il login dell'utente.
-     * @param model
+     * @param redirectAttributes
      * @param session
      * @return index.html
      */
     @GetMapping("/default")
-    public String getDefault(Model model,
+    public String getDefault(RedirectAttributes redirectAttributes,
                              HttpSession session) {
         Credentials credentials = this.credentialsService.getCredentialsAuthenticated();
         session.setAttribute("provider", credentials.getProvider().toString());
@@ -146,7 +147,9 @@ public class AuthController {
             session.setAttribute("role", credentials.getRuolo());
             return "redirect:/";
         }
-        return "error";
+
+        redirectAttributes.addFlashAttribute("errormsg", "Sembra che il tuo account ancora non sia attivo.");
+        return "redirect:/login";
     }
 
     /* gestisce il logout dell'utente corrente */
