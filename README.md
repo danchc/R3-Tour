@@ -75,6 +75,16 @@ In generale, un utente effettua le seguenti operazioni:
 ## Class Diagram
 
  ![cd](https://i.postimg.cc/MTGSgcVd/class-diagram.png)
+ 
+## Screenshots
+
+![s3](https://i.postimg.cc/nrnkTPK2/homepage.png)
+![s1](https://i.postimg.cc/rwHfcgcy/chisiamo.png)
+![s4](https://i.postimg.cc/SKzDK8N6/login.png)
+![s5](https://i.postimg.cc/TwMQ5wpZ/registrazione.png)
+![s2](https://i.postimg.cc/gJVsVWhr/dashboard.png)
+
+
 ## Autori
 
 - [@danchc](https://www.github.com/danchc)
